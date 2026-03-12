@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Reads Analysis — Martina Ibarra Álvez</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm: #F5ECD7;
+    --text: #2A2118;
+    --muted: #8A7968;
+    --accent: #C17C4E;
+    --book: #4A7C8E;
+    --book-soft: rgba(74,124,142,0.08);
+    --book-border: rgba(74,124,142,0.22);
+    --book-dark: #2d5f70;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(253,246,236,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,124,78,0.12);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* HERO */
+  .project-hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .project-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--book-dark); margin-bottom: 24px; background: var(--book-soft); padding: 6px 14px; border-radius: 20px; border: 1px solid var(--book-border); }
+  .project-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -2px; color: var(--text); margin-bottom: 12px; }
+  .project-hero h1 em { font-style: italic; color: var(--book); }
+  .project-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 40px; line-height: 1.5; }
+  .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; padding-top: 32px; border-top: 1px solid rgba(193,124,78,0.15); }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .meta-value { font-size: 0.87rem; color: var(--text); font-weight: 300; }
+
+  .section-divider { height: 1px; background: linear-gradient(to right, transparent, rgba(193,124,78,0.25), transparent); margin: 0 60px; }
+
+  .content-section { max-width: 1100px; margin: 0 auto; padding: 70px 60px; }
+  .section-label { display: flex; align-items: center; gap: 12px; font-size: 0.7rem; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(193,124,78,0.2); max-width: 60px; }
+  .section-number { width: 28px; height: 28px; border-radius: 50%; background: rgba(193,124,78,0.1); border: 1px solid rgba(193,124,78,0.25); display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 500; color: var(--accent); flex-shrink: 0; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; line-height: 1.15; color: var(--text); margin-bottom: 28px; letter-spacing: -0.5px; }
+  .section-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 780px; }
+  .section-body p { margin-bottom: 16px; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  .highlight-box { background: var(--warm); border-radius: 20px; padding: 32px 36px; border: 1px solid rgba(193,124,78,0.12); }
+  .highlight-box-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  .highlight-box p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
+  .highlight-box p + p { margin-top: 10px; }
+
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .tech-tag { font-size: 0.73rem; font-weight: 500; letter-spacing: 0.8px; padding: 6px 14px; border-radius: 20px; background: rgba(255,255,255,0.8); color: var(--text); border: 1px solid rgba(193,124,78,0.2); }
+  .tech-tag.blue { background: var(--book-soft); border-color: var(--book-border); color: var(--book-dark); }
+
+  /* METRICS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 32px; }
+  .metric-card { background: white; border-radius: 18px; padding: 28px 20px; text-align: center; border: 1px solid rgba(193,124,78,0.1); }
+  .metric-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--book); line-height: 1; margin-bottom: 8px; }
+  .metric-label { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+  /* STEPS */
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin-top: 32px; }
+  .step-card { background: white; border-radius: 18px; padding: 26px 22px; border: 1px solid rgba(193,124,78,0.1); position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .step-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.06); }
+  .step-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--book), var(--book-dark)); }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: rgba(74,124,142,0.18); line-height: 1; margin-bottom: 10px; }
+  .step-title { font-size: 0.87rem; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+  .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* CLUSTERS */
+  .clusters-section { background: var(--warm); padding: 80px 0; }
+  .clusters-inner { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
+  .cluster-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 32px; }
+  .cluster-card { background: white; border-radius: 16px; padding: 24px 20px; border: 1px solid rgba(193,124,78,0.1); position: relative; overflow: hidden; }
+  .cluster-id { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(74,124,142,0.10); position: absolute; top: 8px; right: 14px; line-height: 1; }
+  .cluster-name { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+  .cluster-genres { font-size: 0.75rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+  .cluster-count { display: inline-block; margin-top: 12px; font-size: 0.68rem; font-weight: 500; letter-spacing: 1px; color: var(--book-dark); background: var(--book-soft); padding: 3px 10px; border-radius: 10px; border: 1px solid var(--book-border); }
+
+  /* NPS */
+  .nps-box { background: white; border-radius: 20px; padding: 36px; border: 1px solid rgba(193,124,78,0.1); margin-top: 32px; }
+  .nps-formula { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text); text-align: center; padding: 20px; background: var(--cream); border-radius: 12px; margin: 16px 0; border: 1px solid rgba(193,124,78,0.1); }
+  .nps-formula em { color: var(--book); font-style: normal; }
+
+  /* MODELS TABLE */
+  .models-section { max-width: 1100px; margin: 0 auto; padding: 70px 60px; }
+  .model-table { width: 100%; border-collapse: collapse; margin-top: 32px; }
+  .model-table thead tr { background: var(--book-soft); border-bottom: 2px solid var(--book); }
+  .model-table th { padding: 14px 18px; text-align: left; font-size: 0.72rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--book-dark); }
+  .model-table tbody tr { border-bottom: 1px solid rgba(193,124,78,0.08); transition: background 0.15s; }
+  .model-table tbody tr:hover { background: rgba(74,124,142,0.03); }
+  .model-table tbody tr.winner { background: rgba(74,124,142,0.06); border-left: 3px solid var(--book); }
+  .model-table td { padding: 14px 18px; font-size: 0.85rem; color: var(--text); font-weight: 300; }
+  .model-table td.metric { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; }
+  .model-table td.best { color: var(--book); font-weight: 500; }
+  .winner-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; background: var(--book-soft); color: var(--book-dark); border: 1px solid var(--book-border); }
+
+  /* MODEL CARDS */
+  .model-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px; }
+  .model-card { background: white; border-radius: 18px; padding: 28px; border: 1px solid rgba(193,124,78,0.1); }
+  .model-card.featured { border-color: var(--book); border-width: 2px; }
+  .model-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
+  .model-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+  .model-status { font-size: 0.68rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 10px; white-space: nowrap; }
+  .model-status.ok { background: rgba(74,124,142,0.1); color: var(--book-dark); border: 1px solid rgba(74,124,142,0.2); }
+  .model-status.warn { background: rgba(193,124,78,0.1); color: var(--accent); border: 1px solid rgba(193,124,78,0.2); }
+  .model-status.best { background: rgba(74,124,142,0.15); color: var(--book-dark); border: 1px solid rgba(74,124,142,0.3); font-weight: 600; }
+  .model-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .mini-metric { text-align: center; background: var(--cream); border-radius: 10px; padding: 10px 6px; }
+  .mini-metric-val { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--book); line-height: 1; }
+  .mini-metric-lbl { font-size: 0.62rem; color: var(--muted); font-weight: 400; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .model-notes { font-size: 0.8rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  /* FEATURES */
+  .feature-bars { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .feature-row { display: grid; grid-template-columns: 200px 1fr 60px; align-items: center; gap: 12px; }
+  .feature-name { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+  .feature-bar-wrap { height: 8px; background: rgba(74,124,142,0.08); border-radius: 4px; }
+  .feature-bar { height: 100%; background: var(--book); border-radius: 4px; }
+  .feature-val { font-size: 0.75rem; color: var(--muted); text-align: right; font-weight: 400; }
+
+  /* VAR TABLE */
+  .var-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .var-chip { font-size: 0.75rem; font-weight: 400; padding: 5px 13px; border-radius: 20px; background: rgba(255,255,255,0.9); color: var(--text); border: 1px solid rgba(74,124,142,0.18); }
+  .var-chip.key { background: var(--book-soft); border-color: var(--book-border); color: var(--book-dark); font-weight: 500; }
+
+  /* FINDINGS */
+  .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .finding-card { background: white; border-radius: 18px; padding: 26px 28px 26px 30px; border-left: 3px solid var(--book); }
+  .finding-icon { font-size: 1.3rem; margin-bottom: 10px; display: block; }
+  .finding-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .finding-text { font-size: 0.82rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+
+  /* ODDS TABLE */
+  .odds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  .odds-section-title { font-size: 0.75rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--book-dark); margin-bottom: 12px; }
+  .odds-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(193,124,78,0.07); }
+  .odds-row:last-child { border-bottom: none; }
+  .odds-name { font-size: 0.8rem; color: var(--text); flex: 1; font-weight: 300; }
+  .odds-val { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; min-width: 48px; text-align: right; }
+  .odds-val.pos { color: var(--book); }
+  .odds-val.neg { color: #E07A5F; }
+  .odds-bar-mini { height: 5px; border-radius: 3px; min-width: 4px; }
+
+  /* CODE */
+  .code-section { background: #1e1a16; border-radius: 20px; overflow: hidden; margin-top: 32px; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .code-dots { display: flex; gap: 7px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dots span:nth-child(1) { background: #ff5f56; }
+  .code-dots span:nth-child(2) { background: #ffbd2e; }
+  .code-dots span:nth-child(3) { background: #27c93f; }
+  .code-file { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; }
+  .code-body { padding: 28px 32px; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: #d4c4a8; overflow-x: auto; white-space: pre; }
+  .kw  { color: #9B72CF; }
+  .fn  { color: #f6c90e; }
+  .str { color: #a8d8a8; }
+  .cm  { color: #6a6050; font-style: italic; }
+  .num { color: #79b8ff; }
+
+  /* FOOTER */
+  .project-footer { background: var(--text); padding: 60px; text-align: center; }
+  .project-footer p { color: rgba(253,246,236,0.4); font-size: 0.82rem; font-weight: 300; margin-bottom: 24px; }
+  .project-footer a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: rgba(253,246,236,0.08); color: rgba(253,246,236,0.8); font-size: 0.85rem; text-decoration: none; border-radius: 50px; border: 1px solid rgba(253,246,236,0.12); transition: background 0.2s; }
+  .project-footer a:hover { background: rgba(253,246,236,0.14); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-up { animation: fadeUp 0.7s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .project-hero, .content-section, .models-section { padding-left: 24px; padding-right: 24px; }
+    .section-divider { margin: 0 24px; }
+    .two-col, .findings-grid, .model-cards, .odds-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .cluster-grid { grid-template-columns: 1fr 1fr; }
+    .three-col { grid-template-columns: 1fr; }
+    .clusters-inner { padding: 0 24px; }
+    .model-metrics { grid-template-columns: 1fr 1fr; }
+    .project-footer { padding: 40px 24px; }
+    .feature-row { grid-template-columns: 130px 1fr 50px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="martina-ibarra.html" class="nav-logo">Martina Ibarra Álvez</a>
+  <a href="martina-ibarra.html" class="nav-back">← Volver al portafolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero animate-up">
+  <div class="project-tag">K-Means · Clasificación · XGBoost · Random Forest · NPS</div>
+  <h1>Good<em>Reads</em><br>Analysis</h1>
+  <p class="project-subtitle">Clustering de géneros + modelo de clasificación de popularidad · 16.225 libros · GoodReads</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Programa</span>
+      <span class="meta-value">Aprendizaje Automático e IA · UTEC – MIT</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Equipo</span>
+      <span class="meta-value">Martina Ibarra · Florencia Nebot · Elena Salomon</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Dataset</span>
+      <span class="meta-value">16.225 libros · 15 variables · Kaggle / GoodReads</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Modelos evaluados</span>
+      <span class="meta-value">Regresión Logística · Decision Tree · Random Forest · XGBoost</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 1. INTRODUCCIÓN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">01</span>Introducción</div>
+  <h2 class="section-title">¿Por qué un libro se vuelve popular?</h2>
+  <div class="two-col">
+    <div class="section-body">
+      <p>Se suele decir que "no se debe juzgar un libro por su portada" — y ese es exactamente el punto de partida de este proyecto. Al cierre de 2024 se publicaron entre 2.2 y 2.4 millones de libros, lo que equivale a 6.000 títulos nuevos por día. Para un lector, elegir puede ser abrumador.</p>
+      <p>GoodReads es la plataforma de reseñas literarias más grande del mundo, subsidiada por Amazon, con un catálogo de millones de libros y reseñas de millones de usuarios. ¿Puede un modelo de machine learning ayudar a la plataforma a identificar, antes de que un libro se vuelva tendencia, qué títulos tienen el potencial de ser populares?</p>
+      <p>Este proyecto combina dos enfoques: primero, <strong>K-Means para agrupar libros por género</strong> (transformando 728 géneros únicos en 8 clusters interpretables), y luego, <strong>cuatro modelos de clasificación</strong> para predecir si un libro será popular o no.</p>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-box-title">El problema real</div>
+        <p>Muchos lectores terminan comprando libros que no los atrapan, generando bloqueos lectores. GoodReads puede usar un modelo de popularidad para mostrar una selección más curada a nuevos usuarios, incluso antes de conocer sus preferencias individuales.</p>
+        <p>La clave no es solo el rating promedio — sino construir una métrica más robusta que capture el <em>verdadero entusiasmo</em> de la comunidad lectora.</p>
+      </div>
+      <div class="tech-stack">
+        <span class="tech-tag blue">Python</span>
+        <span class="tech-tag blue">K-Means</span>
+        <span class="tech-tag blue">XGBoost</span>
+        <span class="tech-tag blue">Random Forest</span>
+        <span class="tech-tag blue">Scikit-learn</span>
+        <span class="tech-tag">One-Hot Encoding</span>
+        <span class="tech-tag">GridSearchCV</span>
+        <span class="tech-tag">NPS ajustado</span>
+      </div>
+    </div>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-number">16.225</div>
+      <div class="metric-label">libros en el dataset original</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">728</div>
+      <div class="metric-label">géneros únicos → reducidos a 8 clusters</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">4</div>
+      <div class="metric-label">modelos de clasificación entrenados y comparados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">0.81</div>
+      <div class="metric-label">AUC-ROC del modelo ganador (XGBoost)</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 2. MOTIVACIÓN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">02</span>Motivación</div>
+  <h2 class="section-title">La complejidad de medir la popularidad</h2>
+  <div class="two-col">
+    <div class="section-body">
+      <p>El problema central del proyecto es que ninguna variable del dataset, por sí sola, captura la popularidad de manera confiable. El <strong>average_rating</strong> tiene muy baja diferenciación: la mitad de los libros se concentra entre 3.8 y 4.2 — es una variable sesgada hacia valores altos porque los usuarios tienden a calificar solo los libros que les gustan. El <strong>num_ratings</strong> está extremadamente sesgado a la derecha (pocos libros reciben millones de votos, la mayoría recibe muy pocos).</p>
+      <p>La solución fue construir una métrica propia: un <strong>NPS ajustado por participación y normalizado por género</strong>. Solo así se puede comparar de manera justa un libro de nicho biográfico con un bestseller de fantasía juvenil.</p>
+    </div>
+    <div>
+      <div class="nps-box">
+        <p style="font-size:0.78rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--book-dark);margin-bottom:12px;">Fórmula del NPS ajustado</p>
+        <div class="nps-formula">
+          NPS<sub>ajustado</sub> = <em>(NPS · num_ratings + umbral · NPS_total)</em> / <em>(num_ratings + umbral)</em>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;font-weight:300;">Promotores = ratings de 5 estrellas. Detractores = ratings de 1, 2 y 3 estrellas. Neutros = 4 estrellas. El umbral se fijó en el percentil 70 de num_ratings (~42.943 calificaciones) para penalizar libros con baja participación estadística.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 3. RESUMEN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">03</span>Resumen</div>
+  <h2 class="section-title">Un pipeline de dos etapas</h2>
+  <div class="section-body" style="max-width:100%;margin-bottom:32px;">
+    <p>El proyecto se estructura en seis partes: (1) limpieza y preprocesamiento de datos con resolución de duplicados y parsing de variables complejas; (2) clustering K-Means para reducir 728 géneros a 8 clusters interpretables; (3) construcción de la variable dependiente "popular/no popular" usando un NPS ajustado normalizado por género; (4) ingeniería de features con variables de reputación del autor; (5) análisis exploratorio comparando libros populares vs. no populares; y (6) entrenamiento y comparación de cuatro modelos de clasificación.</p>
+  </div>
+  <div class="steps-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="step-card">
+      <span class="step-num">I</span>
+      <div class="step-title">Limpieza y preprocesamiento</div>
+      <div class="step-desc">136 book_ids duplicados, 48 nulos en book_details, parsing de rating_distribution (diccionario → 5 variables), formato, publicación, páginas y géneros con tratamiento especial.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">II</span>
+      <div class="step-title">Clustering de géneros (K-Means)</div>
+      <div class="step-desc">One-hot encoding de 728 géneros → reducción al 75% acumulado (57 géneros) → estandarización → K=8 por método del codo → 8 clusters nominados.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">III</span>
+      <div class="step-title">Variable dependiente: NPS</div>
+      <div class="step-desc">NPS crudo → ajuste por participación (umbral p70) → Z-score por género → umbral de popularidad en p70 del Z-score → etiqueta binaria popular/no popular.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">IV</span>
+      <div class="step-title">Ingeniería de features</div>
+      <div class="step-desc">nps_autor_prev: NPS promedio de libros anteriores del mismo autor. q_libros_prev: cantidad de publicaciones previas del autor en el dataset, ordenadas cronológicamente.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">V</span>
+      <div class="step-title">Análisis exploratorio</div>
+      <div class="step-desc">Comparativa de 10 variables entre libros populares vs no populares. El nps_autor_prev y el rating_5_pct son los diferenciadores más claros.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">VI</span>
+      <div class="step-title">Modelos de clasificación</div>
+      <div class="step-desc">Regresión Logística, Decision Tree (con poda via GridSearchCV), Random Forest y XGBoost. Comparados por Accuracy, Precision, Recall, F1 y AUC-ROC.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CLUSTERS -->
+<section class="clusters-section">
+  <div class="clusters-inner">
+    <div class="section-label"><span class="section-number">04</span>Metodología — Clustering de géneros</div>
+    <h2 class="section-title">8 clusters para 728 géneros</h2>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;max-width:700px;line-height:1.8;margin-bottom:0;">El dataset tenía 728 géneros únicos por ser listas multi-etiqueta por libro. El proceso: One-Hot Encoding → selección del 75% acumulado (57 géneros) → estandarización con StandardScaler → K-Means con K=8 (método del codo). Cada cluster se nombró en base a los géneros con mayor frecuencia relativa.</p>
+    <div class="cluster-grid">
+      <div class="cluster-card">
+        <div class="cluster-id">0</div>
+        <div class="cluster-name">No ficción y reflexión</div>
+        <div class="cluster-genres">Nonfiction 0.91 · Philosophy 0.47 · Self Help 0.41 · Psychology 0.42 · Spirituality 0.35</div>
+        <span class="cluster-count">1.039 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">1</div>
+        <div class="cluster-name">Ficción juvenil</div>
+        <div class="cluster-genres">Fiction 0.96 · Fantasy 0.78 · Young Adult 0.76 · Adventure 0.46 · Childrens 0.54</div>
+        <span class="cluster-count">1.751 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">2</div>
+        <div class="cluster-name">Novela Literaria e Histórica</div>
+        <div class="cluster-genres">Fiction 0.82 · Historical Fiction 0.41 · Literature 0.35 · Classics 0.39 · Novels 0.32</div>
+        <span class="cluster-count">5.352 libros — el mayor</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">3</div>
+        <div class="cluster-name">Fantasía y romance juvenil</div>
+        <div class="cluster-genres">Paranormal 0.98 · Fantasy 0.97 · Romance 0.76 · Vampires 0.45 · Urban Fantasy 0.51</div>
+        <span class="cluster-count">1.107 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">4</div>
+        <div class="cluster-name">Ciencia Ficción</div>
+        <div class="cluster-genres">Fiction 0.93 · Science Fiction 0.68 · Sci-Fi Fantasy 0.34 · Dystopia 0.23 · Adventure 0.12</div>
+        <span class="cluster-count">2.263 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">5</div>
+        <div class="cluster-name">Historiador y biógrafo</div>
+        <div class="cluster-genres">Nonfiction 0.98 · History 0.63 · Biography 0.59 · Memoir 0.46 · Politics 0.29</div>
+        <span class="cluster-count">1.653 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">6</div>
+        <div class="cluster-name">Misterio, thriller y terror</div>
+        <div class="cluster-genres">Mystery 0.97 · Thriller 0.86 · Mystery Thriller 0.72 · Crime 0.65 · Suspense 0.54</div>
+        <span class="cluster-count">1.469 libros</span>
+      </div>
+      <div class="cluster-card">
+        <div class="cluster-id">7</div>
+        <div class="cluster-name">Ficción y nuevas tendencias</div>
+        <div class="cluster-genres">Contemporary 0.91 · Fiction 0.80 · Romance 0.79 · Adult 0.40 · Chick Lit 0.41</div>
+        <span class="cluster-count">1.523 libros</span>
+      </div>
+    </div>
+
+    <!-- NPS por género -->
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-top:48px;margin-bottom:8px;">NPS ajustado medio por cluster</h3>
+    <p style="font-size:0.87rem;color:var(--muted);font-weight:300;margin-bottom:16px;">La normalización por género permite comparar libros dentro de su nicho, evitando que los géneros más populares dominen la clasificación.</p>
+    <div style="background:white;border-radius:18px;padding:32px;border:1px solid rgba(193,124,78,0.1);">
+      <div class="feature-bars">
+        <div class="feature-row"><span class="feature-name">Ficción juvenil</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:88%"></div></div><span class="feature-val">NPS ~20.2</span></div>
+        <div class="feature-row"><span class="feature-name">No ficción y reflexión</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:83%"></div></div><span class="feature-val">NPS ~18.9</span></div>
+        <div class="feature-row"><span class="feature-name">Historiador y biógrafo</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:80%"></div></div><span class="feature-val">NPS ~18.5</span></div>
+        <div class="feature-row"><span class="feature-name">Fantasía y romance juvenil</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:77%"></div></div><span class="feature-val">NPS ~17.6</span></div>
+        <div class="feature-row"><span class="feature-name">Novela Literaria e Histórica</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:72%"></div></div><span class="feature-val">NPS ~16.6</span></div>
+        <div class="feature-row"><span class="feature-name">Ciencia Ficción</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:70%"></div></div><span class="feature-val">NPS ~17.0</span></div>
+        <div class="feature-row"><span class="feature-name">Ficción y nuevas tendencias</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:58%"></div></div><span class="feature-val">NPS ~14.1</span></div>
+        <div class="feature-row"><span class="feature-name">Misterio, thriller y terror</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:55%"></div></div><span class="feature-val">NPS ~14.0</span></div>
+      </div>
+    </div>
+
+    <!-- Top libros por cluster -->
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-top:40px;margin-bottom:16px;">Libros más reseñados por cluster</h3>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <div style="background:white;border-radius:14px;padding:18px;border:1px solid rgba(193,124,78,0.1);">
+        <div style="font-size:0.65rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--book-dark);margin-bottom:8px;">Ciencia Ficción</div>
+        <div style="font-size:0.82rem;font-weight:500;color:var(--text);margin-bottom:4px;">1984</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">587.628 reseñas</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">The Hunger Games · The Midnight Library</div>
+      </div>
+      <div style="background:white;border-radius:14px;padding:18px;border:1px solid rgba(193,124,78,0.1);">
+        <div style="font-size:0.65rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--book-dark);margin-bottom:8px;">Misterio, thriller y terror</div>
+        <div style="font-size:0.82rem;font-weight:500;color:var(--text);margin-bottom:4px;">Verity</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">712.108 reseñas</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">The Silent Patient · A Good Girl's Guide</div>
+      </div>
+      <div style="background:white;border-radius:14px;padding:18px;border:1px solid rgba(193,124,78,0.1);">
+        <div style="font-size:0.65rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--book-dark);margin-bottom:8px;">Novela Literaria e Histórica</div>
+        <div style="font-size:0.82rem;font-weight:500;color:var(--text);margin-bottom:4px;">The Seven Husbands of Evelyn Hugo</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">1.098.517 reseñas</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">The Song of Achilles · Addie LaRue</div>
+      </div>
+      <div style="background:white;border-radius:14px;padding:18px;border:1px solid rgba(193,124,78,0.1);">
+        <div style="font-size:0.65rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--book-dark);margin-bottom:8px;">Ficción y nuevas tendencias</div>
+        <div style="font-size:0.82rem;font-weight:500;color:var(--text);margin-bottom:4px;">A Court of Mist and Fury</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">674.371 reseñas</div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:300;">ACOTAR · It Ends with Us</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. RESULTADOS / EDA -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">05</span>Resultados — EDA y variable dependiente</div>
+  <h2 class="section-title">¿Qué diferencia a los libros populares?</h2>
+
+  <div class="findings-grid">
+    <div class="finding-card">
+      <span class="finding-icon">⭐</span>
+      <div class="finding-title">Rating 5 estrellas: 1.5× más en libros populares</div>
+      <div class="finding-text">Los libros populares tienen un 48% de ratings de 5 estrellas vs 33% en los no populares. "La popularidad se define por el amor extremo" — no por evitar el odio, sino por generar entusiasmo desbordante en la audiencia.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">✍️</span>
+      <div class="finding-title">Reputación del autor: el factor más determinante</div>
+      <div class="finding-text">El nps_autor_prev (NPS promedio de libros anteriores del autor) es casi el doble en libros populares (11.4 vs 7.0). La buena reputación previa transfiere directamente al éxito de nuevas publicaciones.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">📖</span>
+      <div class="finding-title">Los libros populares son más extensos</div>
+      <div class="finding-text">En promedio, los libros populares tienen ~400 páginas vs ~338 páginas los no populares. Una diferencia de casi 90 páginas sugiere que las obras más extensas y elaboradas son percibidas como de mayor valor.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">⭕</span>
+      <div class="finding-title">Rating 1 estrella: la mitad en populares</div>
+      <div class="finding-text">Los libros populares tienen un 2% de ratings de 1 estrella vs un 3% en los no populares. Aunque la diferencia parece pequeña, en términos proporcionales representa la mitad de las valoraciones negativas.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">📅</span>
+      <div class="finding-title">La antigüedad por sí sola no predice popularidad</div>
+      <div class="finding-text">Los libros populares son ligeramente más recientes (publicados en promedio en 1987 vs 1982), pero la diferencia es pequeña. La antigüedad no es un predictor confiable en aislamiento — interactúa de forma no lineal con otras variables.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">🔖</span>
+      <div class="finding-title">Variable dependiente: 38% popular / 62% no popular</div>
+      <div class="finding-text">El umbral del Z-score de NPS ajustado se fijó en el percentil 70 por género. El resultado es un desbalance manejable (62/38) que no requiere técnicas agresivas de balanceo — solo class_weight='balanced' en los modelos.</div>
+    </div>
+  </div>
+
+  <!-- Variables del modelo -->
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-top:48px;margin-bottom:12px;">Variables seleccionadas para el modelo</h3>
+  <p style="font-size:0.88rem;color:var(--muted);font-weight:300;margin-bottom:16px;">Se eliminaron variables que podrían generar data leakage (como num_ratings, average_rating y NPS directo). El modelo solo usa características disponibles al momento de publicación de un libro nuevo.</p>
+  <div class="var-chips">
+    <span class="var-chip key">nps_autor_prev</span>
+    <span class="var-chip key">Cluster: Novela Lit. e Hist.</span>
+    <span class="var-chip key">num_pages</span>
+    <span class="var-chip key">formato_Kindle/eBook</span>
+    <span class="var-chip">q_libros_prev</span>
+    <span class="var-chip">antiguedad</span>
+    <span class="var-chip">Cluster: Misterio, thriller</span>
+    <span class="var-chip">Cluster: Ficción y nuevas tendencias</span>
+    <span class="var-chip">Cluster: Ficción juvenil</span>
+    <span class="var-chip">formato_Paperback</span>
+    <span class="var-chip">Cluster: Fantasía y romance</span>
+    <span class="var-chip">Cluster: Historiador/biógrafo</span>
+    <span class="var-chip">Cluster: No ficción y reflexión</span>
+  </div>
+
+  <div class="code-section" style="margin-top:36px;">
+    <div class="code-header">
+      <div class="code-dots"><span></span><span></span><span></span></div>
+      <div class="code-file">Construcción del NPS ajustado y variable dependiente</div>
+      <div></div>
+    </div>
+    <div class="code-body"><span class="cm"># 1. Calcular NPS crudo por libro</span>
+df[<span class="str">'promotores'</span>] = df[<span class="str">'rating_5_pct'</span>]
+df[<span class="str">'detractores'</span>] = df[<span class="str">'rating_1_pct'</span>] + df[<span class="str">'rating_2_pct'</span>] + df[<span class="str">'rating_3_pct'</span>]
+df[<span class="str">'NPS_book'</span>]    = (df[<span class="str">'promotores'</span>] - df[<span class="str">'detractores'</span>]) * <span class="num">100</span>
+
+<span class="cm"># 2. NPS ajustado por participación (umbral = percentil 70 de num_ratings)</span>
+umbral = df[<span class="str">'num_ratings'</span>].<span class="fn">quantile</span>(<span class="num">0.7</span>)  <span class="cm"># ≈ 42.943</span>
+total_nps = df[<span class="str">'NPS_book'</span>].<span class="fn">mean</span>()
+df[<span class="str">'NPS_ajustado'</span>] = (
+    (df[<span class="str">'NPS_book'</span>] * df[<span class="str">'num_ratings'</span>] + umbral * total_nps)
+    / (df[<span class="str">'num_ratings'</span>] + umbral)
+)
+
+<span class="cm"># 3. Normalizar por género (Z-score dentro de cada cluster)</span>
+df[<span class="str">'NPS_zscore_genero'</span>] = df.<span class="fn">groupby</span>(<span class="str">'Cluster_Nombre'</span>)[<span class="str">'NPS_ajustado'</span>].<span class="fn">transform</span>(
+    <span class="kw">lambda</span> x: (x - x.<span class="fn">mean</span>()) / x.<span class="fn">std</span>()
+)
+
+<span class="cm"># 4. Umbral en p70 del Z-score → etiqueta binaria</span>
+umbral_z = df[<span class="str">'NPS_zscore_genero'</span>].<span class="fn">quantile</span>(<span class="num">0.7</span>)  <span class="cm"># ≈ 0.30</span>
+df[<span class="str">'popular'</span>] = df[<span class="str">'NPS_zscore_genero'</span>] >= umbral_z
+<span class="cm"># → 38% popular · 62% no popular</span>
+
+<span class="cm"># 5. Feature engineering: reputación del autor</span>
+df_sorted = df.<span class="fn">sort_values</span>([<span class="str">'author'</span>, <span class="str">'publication_year'</span>])
+df[<span class="str">'nps_autor_prev'</span>] = (df_sorted.<span class="fn">groupby</span>(<span class="str">'author'</span>)[<span class="str">'NPS_ajustado'</span>]
+                         .<span class="fn">transform</span>(<span class="kw">lambda</span> x: x.<span class="fn">expanding</span>().<span class="fn">mean</span>().<span class="fn">shift</span>(<span class="num">1</span>))
+                         .<span class="fn">fillna</span>(<span class="num">0</span>))</div>
+  </div>
+</section>
+
+<!-- 6. MODELOS -->
+<section class="models-section">
+  <div class="section-label"><span class="section-number">06</span>Resultados — Modelos de clasificación</div>
+  <h2 class="section-title">Cuatro modelos, un ganador</h2>
+
+  <div class="model-cards">
+    <div class="model-card">
+      <div class="model-header">
+        <div class="model-name">Regresión Logística</div>
+        <span class="model-status warn">Baseline</span>
+      </div>
+      <div class="model-metrics">
+        <div class="mini-metric"><div class="mini-metric-val">0.66</div><div class="mini-metric-lbl">Accuracy</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.54</div><div class="mini-metric-lbl">Precision</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.66</div><div class="mini-metric-lbl">Recall</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.72</div><div class="mini-metric-lbl">AUC-ROC</div></div>
+      </div>
+      <div class="model-notes">Modelo de referencia. Las variables más influyentes son nps_autor_prev (odds × 1.84) y el cluster "Novela Literaria e Histórica" (odds × 1.83). Sorprendentemente, más libros previos del autor tiene efecto negativo (odds × 0.83). Threshold óptimo estratégico: 0.7 para minimizar falsos positivos.</div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-header">
+        <div class="model-name">Decision Tree (podado)</div>
+        <span class="model-status ok">Mejora significativa</span>
+      </div>
+      <div class="model-metrics">
+        <div class="mini-metric"><div class="mini-metric-val">0.73</div><div class="mini-metric-lbl">Accuracy</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.62</div><div class="mini-metric-lbl">Precision</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.72</div><div class="mini-metric-lbl">Recall</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.79</div><div class="mini-metric-lbl">AUC-ROC</div></div>
+      </div>
+      <div class="model-notes">El árbol sin podar tuvo overfitting extremo (100% en train, 68% en test). Tras optimización con GridSearchCV (max_depth=9, min_samples_leaf=20), la diferencia train/test se minimizó y el F1 pasó de 0.58 a 0.66. Regla interpretable: "Si nps_autor_prev &gt; 22 y num_pages &gt; 315 → alta probabilidad de éxito".</div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-header">
+        <div class="model-name">Random Forest</div>
+        <span class="model-status ok">Segunda opción</span>
+      </div>
+      <div class="model-metrics">
+        <div class="mini-metric"><div class="mini-metric-val">0.74</div><div class="mini-metric-lbl">Accuracy</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.67</div><div class="mini-metric-lbl">Precision</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.60</div><div class="mini-metric-lbl">Recall</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.79</div><div class="mini-metric-lbl">AUC-ROC</div></div>
+      </div>
+      <div class="model-notes">Overfitting en train (100%) pero buena generalización en test. De 1.822 libros populares reales, el modelo capturó 1.090 (60%) con solo 534 falsos positivos controlados. Feature importance: num_pages es la variable más importante, seguida de antiguedad (efecto no lineal) y nps_autor_prev.</div>
+    </div>
+
+    <div class="model-card featured">
+      <div class="model-header">
+        <div class="model-name">XGBoost</div>
+        <span class="model-status best">★ Modelo ganador</span>
+      </div>
+      <div class="model-metrics">
+        <div class="mini-metric"><div class="mini-metric-val">0.76</div><div class="mini-metric-lbl">Accuracy</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.71</div><div class="mini-metric-lbl">Precision</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.61</div><div class="mini-metric-lbl">Recall</div></div>
+        <div class="mini-metric"><div class="mini-metric-val">0.81</div><div class="mini-metric-lbl">AUC-ROC</div></div>
+      </div>
+      <div class="model-notes">El modelo más equilibrado: menor gap entre train (86% accuracy) y test (76%). La validación cruzada confirma la menor varianza entre todos los modelos (desv. estándar de Recall: ±0.006 vs ±0.018 del Random Forest). Con precisión del 71%, un libro marcado como popular tiene muy alta probabilidad de serlo.</div>
+    </div>
+  </div>
+
+  <!-- Tabla comparativa -->
+  <table class="model-table" style="margin-top:32px;">
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Accuracy</th>
+        <th>Precision (popular)</th>
+        <th>Recall (popular)</th>
+        <th>F1-Score</th>
+        <th>AUC-ROC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Regresión Logística</td>
+        <td class="metric">0.66</td>
+        <td class="metric">0.54</td>
+        <td class="metric">0.66</td>
+        <td class="metric">0.60</td>
+        <td class="metric">0.72</td>
+      </tr>
+      <tr>
+        <td>Decision Tree (podado)</td>
+        <td class="metric">0.73</td>
+        <td class="metric">0.62</td>
+        <td class="metric">0.72</td>
+        <td class="metric">0.66</td>
+        <td class="metric">0.79</td>
+      </tr>
+      <tr>
+        <td>Random Forest</td>
+        <td class="metric">0.74</td>
+        <td class="metric">0.67</td>
+        <td class="metric">0.60</td>
+        <td class="metric">0.63</td>
+        <td class="metric">0.79</td>
+      </tr>
+      <tr class="winner">
+        <td><span class="winner-badge">★ Ganador</span> XGBoost</td>
+        <td class="metric best">0.76</td>
+        <td class="metric best">0.71</td>
+        <td class="metric">0.61</td>
+        <td class="metric">0.65</td>
+        <td class="metric best">0.81</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Importancia de variables XGBoost -->
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-top:48px;margin-bottom:8px;">Importancia de features — XGBoost</h3>
+  <p style="font-size:0.87rem;color:var(--muted);font-weight:300;margin-bottom:0;">El género es el predictor más constante y frecuente, pero el nps_autor_prev es el más determinante cuando el NPS es extremo.</p>
+  <div class="feature-bars" style="margin-top:20px;background:white;border-radius:18px;padding:28px;border:1px solid rgba(193,124,78,0.1);">
+    <div class="feature-row"><span class="feature-name">Novela Lit. e Histórica</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:92%"></div></div><span class="feature-val">muy alta</span></div>
+    <div class="feature-row"><span class="feature-name">nps_autor_prev</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:88%"></div></div><span class="feature-val">muy alta</span></div>
+    <div class="feature-row"><span class="feature-name">antiguedad</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:72%"></div></div><span class="feature-val">alta</span></div>
+    <div class="feature-row"><span class="feature-name">num_pages</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:68%"></div></div><span class="feature-val">alta</span></div>
+    <div class="feature-row"><span class="feature-name">q_libros_prev</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:52%"></div></div><span class="feature-val">media</span></div>
+    <div class="feature-row"><span class="feature-name">Ficción juvenil</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:28%"></div></div><span class="feature-val">baja</span></div>
+    <div class="feature-row"><span class="feature-name">Otros géneros</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:18%"></div></div><span class="feature-val">muy baja</span></div>
+  </div>
+
+  <!-- Odds Ratio -->
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--text);margin-top:48px;margin-bottom:8px;">Odds Ratio — Regresión Logística</h3>
+  <p style="font-size:0.87rem;color:var(--muted);font-weight:300;margin-bottom:0;">Las variables con Odds &gt; 1 aumentan la probabilidad de popularidad; las que tienen Odds &lt; 1 la disminuyen.</p>
+  <div class="odds-grid" style="margin-top:20px;">
+    <div style="background:white;border-radius:18px;padding:28px;border:1px solid rgba(193,124,78,0.1);">
+      <div class="odds-section-title">Factores que AUMENTAN la probabilidad</div>
+      <div class="odds-row">
+        <span class="odds-name">nps_autor_prev</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:92%"></div></div></div>
+        <span class="odds-val pos">×1.84</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">Novela Lit. e Histórica</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:90%"></div></div></div>
+        <span class="odds-val pos">×1.83</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">num_pages</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:62%"></div></div></div>
+        <span class="odds-val pos">×1.31</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">formato Kindle/eBook</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:55%"></div></div></div>
+        <span class="odds-val pos">×1.27</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">Misterio, thriller y terror</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:68%"></div></div></div>
+        <span class="odds-val pos">×1.33</span>
+      </div>
+    </div>
+    <div style="background:white;border-radius:18px;padding:28px;border:1px solid rgba(193,124,78,0.1);">
+      <div class="odds-section-title">Factores que DISMINUYEN la probabilidad</div>
+      <div class="odds-row">
+        <span class="odds-name">q_libros_prev (muchos libros)</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:85%;background:#E07A5F;"></div></div></div>
+        <span class="odds-val neg">×0.83</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">Ficción juvenil</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:52%;background:#E07A5F;"></div></div></div>
+        <span class="odds-val neg">×0.90</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">formato Paperback</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:35%;background:#E07A5F;"></div></div></div>
+        <span class="odds-val neg">×0.94</span>
+      </div>
+      <div class="odds-row">
+        <span class="odds-name">antiguedad</span>
+        <div style="flex:1;"><div class="feature-bar-wrap"><div class="feature-bar" style="width:25%;background:#E07A5F;"></div></div></div>
+        <span class="odds-val neg">×0.96</span>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:var(--cream);border-radius:10px;font-size:0.8rem;color:var(--muted);line-height:1.65;font-weight:300;">⚠️ El efecto negativo de q_libros_prev es contraintuitivo: más libros publicados no garantiza mayor popularidad. Puede deberse a fatiga del público o dilución de la marca del autor.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 7. RECOMENDACIONES -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">07</span>Recomendaciones</div>
+  <h2 class="section-title">Implementación para GoodReads</h2>
+  <div class="two-col">
+    <div>
+      <div class="section-body">
+        <p>El modelo XGBoost seleccionado puede integrarse directamente al flujo de GoodReads para tres casos de uso principales:</p>
+        <p><strong>Usuarios nuevos sin historial:</strong> mostrar en la pantalla de inicio los libros marcados como populares por el modelo, garantizando que al menos el 71% de esas recomendaciones sean libros que la comunidad realmente valora.</p>
+        <p><strong>Evaluación pre-publicación:</strong> editores y autores pueden ingresar las características de un manuscrito (género, extensión, historial del autor) y obtener una estimación de popularidad antes de la campaña de marketing.</p>
+        <p><strong>Curación editorial:</strong> priorizar libros con alta predicción de popularidad para campañas especiales, listas de "próximos éxitos" o newsletters temáticas.</p>
+      </div>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-box-title">Casos de error analizados</div>
+        <p><strong>Falso negativo: "Invisible Cities" de Italo Calvino.</strong> Con solo 165 páginas, queda por debajo del patrón que el modelo aprendió (libros exitosos tienden a tener más de 300 páginas). El modelo subestima las "obras maestras breves". Posible mejora: incorporar variable de calidad literaria reconocida.</p>
+        <p><strong>Falso negativo: "The Choice" de Edith Eger.</strong> Autora sin libros previos en el dataset → nps_autor_prev = 0. El modelo es conservador con autores nuevos. Mejora posible: incorporar señales externas como premios o cobertura mediática.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="project-footer">
+  <p>© 2025 Martina Ibarra Álvez · UTEC – MIT · Data Science & AI</p>
+  <a href="martina-ibarra.html">← Volver al portafolio</a>
+</footer>
+
+</body>
+</html>

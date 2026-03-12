@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dine or Dash — Martina Ibarra Álvez</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm: #F5ECD7;
+    --text: #2A2118;
+    --muted: #8A7968;
+    --accent: #C17C4E;
+    --accent2: #52B788;
+    --accent2-soft: rgba(82,183,136,0.1);
+    --accent2-border: rgba(82,183,136,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(253,246,236,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,124,78,0.12);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* HERO */
+  .project-hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .project-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent2); margin-bottom: 24px;
+    background: var(--accent2-soft); padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--accent2-border);
+  }
+  .project-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 300; line-height: 1.0;
+    letter-spacing: -2px; color: var(--text); margin-bottom: 12px;
+  }
+  .project-hero h1 em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; font-style: italic; color: var(--muted); margin-bottom: 40px; line-height: 1.5; }
+  .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; padding-top: 32px; border-top: 1px solid rgba(193,124,78,0.15); }
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .meta-value { font-size: 0.87rem; color: var(--text); font-weight: 300; }
+
+  .section-divider { height: 1px; background: linear-gradient(to right, transparent, rgba(193,124,78,0.25), transparent); margin: 0 60px; }
+
+  /* CONTENT */
+  .content-section { max-width: 1100px; margin: 0 auto; padding: 70px 60px; }
+  .section-label { display: flex; align-items: center; gap: 12px; font-size: 0.7rem; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(193,124,78,0.2); max-width: 60px; }
+  .section-number { width: 28px; height: 28px; border-radius: 50%; background: rgba(193,124,78,0.1); border: 1px solid rgba(193,124,78,0.25); display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 500; color: var(--accent); flex-shrink: 0; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; line-height: 1.15; color: var(--text); margin-bottom: 28px; letter-spacing: -0.5px; }
+  .section-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; font-weight: 300; max-width: 780px; }
+  .section-body p { margin-bottom: 16px; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  .highlight-box { background: var(--warm); border-radius: 20px; padding: 32px 36px; border: 1px solid rgba(193,124,78,0.12); margin-top: 32px; }
+  .highlight-box-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+  .highlight-box p { font-size: 0.88rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
+
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .tech-tag { font-size: 0.73rem; font-weight: 500; letter-spacing: 0.8px; padding: 6px 14px; border-radius: 20px; background: rgba(255,255,255,0.8); color: var(--text); border: 1px solid rgba(193,124,78,0.2); }
+  .tech-tag.accent { background: var(--accent2-soft); border-color: var(--accent2-border); color: #2d7a5a; }
+
+  /* MODELS SECTION */
+  .models-bg { background: var(--warm); padding: 80px 0; }
+  .models-inner { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
+
+  .model-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
+  .model-card {
+    background: white; border-radius: 18px; padding: 24px 20px;
+    border: 1px solid rgba(193,124,78,0.1);
+    position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .model-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.06); }
+  .model-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .model-card:nth-child(1)::before { background: #ccc; }
+  .model-card:nth-child(2)::before { background: var(--accent2); }
+  .model-card:nth-child(3)::before { background: var(--accent); }
+  .model-card:nth-child(4)::before { background: #9B72CF; }
+  .model-card:nth-child(5)::before { background: #E07A5F; }
+
+  .model-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: rgba(193,124,78,0.2); line-height: 1; margin-bottom: 10px; }
+  .model-name { font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+  .model-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* RESULTS TABLE */
+  .results-table { width: 100%; border-radius: 18px; overflow: hidden; border: 1px solid rgba(193,124,78,0.12); margin-top: 32px; }
+  .results-table table { width: 100%; border-collapse: collapse; }
+  .results-table th { padding: 14px 18px; background: rgba(193,124,78,0.06); font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); text-align: left; border-bottom: 1px solid rgba(193,124,78,0.1); }
+  .results-table td { padding: 14px 18px; font-size: 0.83rem; color: var(--muted); font-weight: 300; border-bottom: 1px solid rgba(193,124,78,0.06); }
+  .results-table tr:last-child td { border-bottom: none; }
+  .results-table tr.best td { background: rgba(82,183,136,0.04); }
+  .results-table .model-label { font-weight: 500; color: var(--text); font-size: 0.85rem; }
+  .badge { display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+  .badge.best { background: rgba(82,183,136,0.1); color: #2d7a5a; border: 1px solid rgba(82,183,136,0.25); }
+  .badge.good { background: rgba(246,201,14,0.1); color: #8a6f00; border: 1px solid rgba(246,201,14,0.2); }
+  .badge.ok   { background: rgba(193,124,78,0.1); color: var(--accent); border: 1px solid rgba(193,124,78,0.2); }
+
+  /* METRICS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 32px; }
+  .metric-card { background: white; border-radius: 18px; padding: 28px 20px; text-align: center; border: 1px solid rgba(193,124,78,0.1); }
+  .metric-number { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--accent2); line-height: 1; margin-bottom: 8px; }
+  .metric-label { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+  /* FINDINGS */
+  .finding-items { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  .finding-card { background: white; border-radius: 18px; padding: 28px 28px 28px 32px; border-left: 3px solid var(--accent2); }
+  .finding-icon { font-size: 1.5rem; margin-bottom: 12px; display: block; }
+  .finding-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .finding-text { font-size: 0.83rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
+
+  /* CODE */
+  .code-section { background: #1e1a16; border-radius: 20px; overflow: hidden; margin-top: 32px; }
+  .code-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .code-dots { display: flex; gap: 7px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .code-dots span:nth-child(1) { background: #ff5f56; }
+  .code-dots span:nth-child(2) { background: #ffbd2e; }
+  .code-dots span:nth-child(3) { background: #27c93f; }
+  .code-title { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 1px; text-transform: uppercase; }
+  .code-body { padding: 28px 32px; font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.8; color: #d4c4a8; overflow-x: auto; white-space: pre; }
+  .kw  { color: #52B788; }
+  .fn  { color: #f6c90e; }
+  .str { color: #a8d8a8; }
+  .cm  { color: #6a6050; font-style: italic; }
+  .num { color: #79b8ff; }
+  .var { color: #e6c07b; }
+
+  /* RECS */
+  .rec-list { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .rec-item { display: flex; gap: 18px; align-items: flex-start; background: white; border-radius: 14px; padding: 20px 24px; border: 1px solid rgba(193,124,78,0.1); }
+  .rec-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--accent2-soft); border: 1px solid var(--accent2-border); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
+  .rec-content { flex: 1; }
+  .rec-title { font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+  .rec-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+  /* SECTION WITH BARS */
+  .cuisine-bars { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; }
+  .bar-label { font-size: 0.78rem; color: var(--muted); font-weight: 300; min-width: 160px; }
+  .bar-track { flex: 1; height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--accent2); }
+  .bar-value { font-size: 0.75rem; color: var(--muted); min-width: 36px; text-align: right; }
+
+  /* FOOTER */
+  .project-footer { background: var(--text); padding: 60px; text-align: center; }
+  .project-footer p { color: rgba(253,246,236,0.4); font-size: 0.82rem; font-weight: 300; margin-bottom: 24px; }
+  .project-footer a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: rgba(253,246,236,0.08); color: rgba(253,246,236,0.8); font-size: 0.85rem; text-decoration: none; border-radius: 50px; border: 1px solid rgba(253,246,236,0.12); transition: background 0.2s; }
+  .project-footer a:hover { background: rgba(253,246,236,0.14); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-up { animation: fadeUp 0.7s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .project-hero { padding: 110px 24px 60px; }
+    .content-section { padding: 50px 24px; }
+    .section-divider { margin: 0 24px; }
+    .two-col { grid-template-columns: 1fr; gap: 28px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .finding-items { grid-template-columns: 1fr; }
+    .models-inner { padding: 0 24px; }
+    .project-footer { padding: 40px 24px; }
+    .model-cards { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="martina-ibarra.html" class="nav-logo">Martina Ibarra Álvez</a>
+  <a href="martina-ibarra.html" class="nav-back">← Volver al portafolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero animate-up">
+  <div class="project-tag">Recomendación · SVD · NLP · Social Graphs</div>
+  <h1>Dine or <em>Dash</em></h1>
+  <p class="project-subtitle">Sistema de recomendación de restaurantes sobre Yelp · Philadelphia</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Autoría</span>
+      <span class="meta-value">Martina Ibarra · Elena Salomon · Florencia Nebot</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Programa</span>
+      <span class="meta-value">MIT-GTL Uruguay 2026 · UTEC</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Dataset</span>
+      <span class="meta-value">Yelp Open Dataset · 1.84M reseñas · 40 features</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Mejor modelo</span>
+      <span class="meta-value">SVD + Sentiment Analysis · Recall 84.6%</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 1. INTRODUCCIÓN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">01</span>Introducción</div>
+  <h2 class="section-title">¿Qué es Dine or Dash?</h2>
+  <div class="two-col">
+    <div class="section-body">
+      <p>Dine or Dash es un motor de recomendación de restaurantes construido sobre el dataset abierto de Yelp. El proyecto transforma millones de reseñas en sugerencias personalizadas y socialmente relevantes, yendo mucho más allá del clásico ranking de "5 estrellas".</p>
+      <p>El sistema implementa y compara <strong>cinco modelos de recomendación</strong> —desde un baseline no personalizado hasta SVD enriquecido con análisis de sentimiento y grafos sociales— evaluando cuál entrega las recomendaciones más útiles y precisas para cada usuario.</p>
+      <p>El trabajo se focalizó en <strong>Philadelphia</strong>, la ciudad con mayor densidad de restaurantes y usuarios activos del dataset, filtrando únicamente usuarios que habían dejado al menos 5 reseñas para garantizar suficiente señal de comportamiento.</p>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-box-title">La paradoja de la elección</div>
+        <p><em>"Demasiadas opciones no liberan al usuario — lo paralizan."</em> El surgimiento de plataformas digitales generó una sobrecarga de información donde las reseñas de extraños compiten con la influencia de nuestro círculo social. Dine or Dash modela ambas fuentes para producir recomendaciones más humanas y confiables.</p>
+      </div>
+      <div class="tech-stack">
+        <span class="tech-tag accent">SVD</span>
+        <span class="tech-tag accent">KNN</span>
+        <span class="tech-tag accent">VADER NLP</span>
+        <span class="tech-tag accent">Social Graphs</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Scikit-Surprise</span>
+        <span class="tech-tag">NetworkX</span>
+        <span class="tech-tag">NLTK</span>
+        <span class="tech-tag">Pandas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 2. MOTIVACIÓN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">02</span>Motivación</div>
+  <h2 class="section-title">Por qué las 5 estrellas no alcanzan</h2>
+  <div class="two-col">
+    <div class="section-body">
+      <p>Los sistemas de rating tradicionales tienen un problema estructural: el <strong>sesgo positivo</strong>. El promedio de ratings en el dataset es 3.93 sobre 5, y la distribución está fuertemente sesgada hacia calificaciones altas. Los usuarios escriben reseñas principalmente luego de experiencias excepcionales, no promedio.</p>
+      <p>Además, cada usuario tiene una escala diferente: el usuario 52500 tiene un promedio de 4.60, mientras el usuario 51007 promedia 3.59. Una estrella de uno no equivale a una estrella del otro. El sistema de recomendación debe capturar estas diferencias individuales.</p>
+      <p>A esto se suma el problema de la <strong>densidad de reseñas</strong>: con 8,714 usuarios y 3,372 restaurantes en Philadelphia, solo el 0.38% de las combinaciones posibles tiene una reseña real. La escasez de datos obliga a modelos sofisticados que puedan inferir preferencias a partir de señales indirectas.</p>
+    </div>
+    <div>
+      <div style="background: white; border-radius: 18px; padding: 28px 24px; border: 1px solid rgba(193,124,78,0.1); margin-bottom: 20px;">
+        <div style="font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px;">Sesgo positivo del dataset</div>
+        <div class="cuisine-bars">
+          <div class="bar-row">
+            <div class="bar-label">⭐⭐⭐⭐⭐ (5 estrellas)</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 48%;"></div></div>
+            <div class="bar-value">48%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">⭐⭐⭐⭐ (4 estrellas)</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 28%; opacity: .8;"></div></div>
+            <div class="bar-value">28%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">⭐⭐⭐ (3 estrellas)</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 12%; opacity: .6;"></div></div>
+            <div class="bar-value">12%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">⭐⭐ (2 estrellas)</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 7%; opacity: .4;"></div></div>
+            <div class="bar-value">7%</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">⭐ (1 estrella)</div>
+            <div class="bar-track"><div class="bar-fill" style="width: 5%; opacity: .25;"></div></div>
+            <div class="bar-value">5%</div>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box-title">Sparsity del dataset</div>
+        <p>Solo <strong>111,831 reseñas reales</strong> sobre 29,383,608 combinaciones posibles usuario-restaurante. Eso es un <strong>0.38% de densidad</strong> — el resto debe ser inferido por los modelos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 3. RESUMEN -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">03</span>Resumen</div>
+  <h2 class="section-title">El proyecto en síntesis</h2>
+  <div class="section-body" style="max-width: 100%; margin-bottom: 32px;">
+    <p>El proyecto diseña, implementa y compara cinco modelos de recomendación sobre el subconjunto de Philadelphia del dataset de Yelp: 111,831 reseñas, 8,714 usuarios únicos y 3,372 restaurantes. Se evalúan mediante RMSE, Precisión, Recall y F1-Score, con el foco principal en el <strong>Recall</strong>, ya que el objetivo es el descubrimiento —identificar la mayor proporción de restaurantes que el usuario disfrutaría— y no la predicción exacta de la calificación.</p>
+    <p>El modelo ganador es <strong>SVD + Análisis de Sentimiento</strong>, que alcanza un Recall de 84.6%. La estrategia recomendada es un sistema híbrido con secciones diferenciadas, donde cada modelo alimenta la sección que mejor se adapta a su naturaleza.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-number">1.84M</div>
+      <div class="metric-label">reseñas en el dataset original de Yelp</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">5</div>
+      <div class="metric-label">modelos implementados y comparados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">84.6%</div>
+      <div class="metric-label">Recall del modelo final (SVD + Sentimiento)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-number">32.9k</div>
+      <div class="metric-label">conexiones sociales en el grafo de amigos</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 4. METODOLOGÍA -->
+<section class="models-bg">
+  <div class="models-inner">
+    <div class="section-label"><span class="section-number">04</span>Metodología</div>
+    <h2 class="section-title">Los cinco modelos implementados</h2>
+    <div class="section-body" style="max-width: 100%;">
+      <p>Cada modelo representa una evolución en sofisticación, incorporando progresivamente más fuentes de información: popularidad agregada → comportamiento del usuario → factorización de matrices → red social → texto de reseñas.</p>
+    </div>
+
+    <div class="model-cards">
+      <div class="model-card">
+        <div class="model-num">1</div>
+        <div class="model-name">Rank-Based (Baseline)</div>
+        <div class="model-desc">Recomendaciones no personalizadas basadas en popularidad y rating promedio. Útil para el problema de <em>cold start</em>: usuarios nuevos sin historial previo.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">2</div>
+        <div class="model-name">CF User-User (KNN)</div>
+        <div class="model-desc">Identifica usuarios con patrones de rating similares. Excelente para descubrimiento de experiencias fuera de las categorías habituales del usuario. k=40, similitud MSD.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">3</div>
+        <div class="model-name">CF Item-Item (KNN)</div>
+        <div class="model-desc">Encuentra restaurantes similares a los ya visitados y valorados. Útil para sugerencias de "más de lo mismo". k=40, similitud MSD.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">4</div>
+        <div class="model-name">SVD + Social Graphs</div>
+        <div class="model-desc">Factorización de matrices SVD con regularización social. Los ratings de los amigos del usuario guían las predicciones. Grafo de 8,714 nodos y 32,917 conexiones.</div>
+      </div>
+      <div class="model-card">
+        <div class="model-num">5</div>
+        <div class="model-name">SVD + Sentiment (NLP)</div>
+        <div class="model-desc">El análisis de sentimiento VADER sobre el texto de la reseña enriquece el rating numérico con la emoción expresada, generando un <em>sentiment_rating</em> compuesto como señal de entrenamiento.</div>
+      </div>
+    </div>
+
+    <!-- CODE SNIPPET -->
+    <div class="code-section" style="margin-top: 40px;">
+      <div class="code-header">
+        <div class="code-dots"><span></span><span></span><span></span></div>
+        <div class="code-title">Modelo 5 — Construcción del rating enriquecido con sentimiento</div>
+        <div></div>
+      </div>
+      <div class="code-body"><span class="cm"># Paso 1: calcular sentiment score con VADER</span>
+<span class="kw">from</span> nltk.sentiment <span class="kw">import</span> SentimentIntensityAnalyzer
+sia = <span class="fn">SentimentIntensityAnalyzer</span>()
+
+df[<span class="str">'sentiment_score'</span>] = df[<span class="str">'review_text'</span>].apply(
+    <span class="kw">lambda</span> x: sia.<span class="fn">polarity_scores</span>(x)[<span class="str">'compound'</span>]
+              * <span class="num">0.5</span> + <span class="num">0.5</span>  <span class="cm"># normalizar a [0, 1]</span>
+)
+
+<span class="cm"># Paso 2: construir rating compuesto</span>
+<span class="cm"># sentiment_rating = sentiment_score * 5  →  escala 0-5</span>
+<span class="cm"># rating_final = 0.8 * rating_user + 0.2 * sentiment_rating</span>
+df[<span class="str">'sentiment_rating'</span>] = df[<span class="str">'sentiment_score'</span>] * <span class="num">5</span>
+df[<span class="str">'rating_final'</span>]     = (df[<span class="str">'rating_user'</span>]     * <span class="num">0.8</span>
+                        + df[<span class="str">'sentiment_rating'</span>] * <span class="num">0.2</span>)
+
+<span class="cm"># Paso 3: entrenar SVD sobre el rating enriquecido</span>
+<span class="kw">from</span> surprise <span class="kw">import</span> SVD, Dataset, Reader
+
+reader  = <span class="fn">Reader</span>(rating_scale=(<span class="num">1</span>, <span class="num">5</span>))
+data    = Dataset.<span class="fn">load_from_df</span>(
+    df[[<span class="str">'user_id'</span>, <span class="str">'business_id'</span>, <span class="str">'rating_final'</span>]], reader
+)
+model   = <span class="fn">SVD</span>(n_epochs=<span class="num">20</span>, lr_all=<span class="num">0.007</span>, reg_all=<span class="num">0.02</span>)
+trainset = data.<span class="fn">build_full_trainset</span>()
+model.<span class="fn">fit</span>(trainset)
+
+<span class="cm"># Resultado: Recall = 0.846 | Precisión = 0.728 | RMSE = 1.110</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. RESULTADOS -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">05</span>Resultados</div>
+  <h2 class="section-title">Comparación de modelos y hallazgos clave</h2>
+
+  <!-- TABLE -->
+  <div class="results-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>RMSE</th>
+          <th>Precisión</th>
+          <th>Recall</th>
+          <th>F1-Score</th>
+          <th>Hiperparámetros</th>
+          <th>Evaluación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="model-label">CF User-User</span></td>
+          <td>1.1203</td><td>0.736</td><td>0.823</td><td>0.777</td>
+          <td>k=40, min_k=6, MSD</td>
+          <td><span class="badge good">Bueno</span></td>
+        </tr>
+        <tr>
+          <td><span class="model-label">CF Item-Item</span></td>
+          <td>1.1356</td><td>0.729</td><td>0.827</td><td>0.775</td>
+          <td>k=40, min_k=6, MSD</td>
+          <td><span class="badge good">Bueno</span></td>
+        </tr>
+        <tr>
+          <td><span class="model-label">SVD (Matrix Fact.)</span></td>
+          <td>1.0292</td><td>0.721</td><td>0.785</td><td>0.752</td>
+          <td>n_epochs=20, lr=0.01, reg=0.2</td>
+          <td><span class="badge ok">Sólido</span></td>
+        </tr>
+        <tr>
+          <td><span class="model-label">SVD + Friends</span></td>
+          <td>1.0355</td><td>0.722</td><td>0.788</td><td>0.754</td>
+          <td>n_epochs=20, lr=0.007, reg=0.02</td>
+          <td><span class="badge ok">Sólido</span></td>
+        </tr>
+        <tr class="best">
+          <td><span class="model-label">SVD + Sentimiento ★</span></td>
+          <td>1.1103</td><td>0.728</td><td><strong>0.846</strong></td><td>0.783</td>
+          <td>n_epochs=20, lr=0.007, reg=0.02</td>
+          <td><span class="badge best">Óptimo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FINDINGS -->
+  <div class="finding-items" style="margin-top: 40px;">
+    <div class="finding-card">
+      <span class="finding-icon">💬</span>
+      <div class="finding-title">El texto vale más que las estrellas</div>
+      <div class="finding-text">El modelo con análisis de sentimiento alcanza el mayor Recall (84.6%), superando a todos los modelos puramente numéricos. Las reseñas textuales capturan matices emocionales que el rating de 1–5 no puede expresar, como la diferencia entre un 4 entusiasta y un 4 decepcionado.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">👥</span>
+      <div class="finding-title">El grafo social no cambia significativamente el resultado</div>
+      <div class="finding-text">SVD con amigos vs SVD simple: diferencia de solo 0.003 en Recall. Los amigos aportan valor cualitativo (las recomendaciones son más confiadas), pero el impacto cuantitativo es marginal, posiblemente por la cantidad de usuarios sin conexiones sociales.</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">🏆</span>
+      <div class="finding-title">El modelo User-User es el más robusto en balance</div>
+      <div class="finding-text">Con F1 de 0.777 y mayor precisión general, el modelo colaborativo usuario-usuario es el más equilibrado. Descubre restaurantes fuera del historial habitual del usuario al identificar perfiles similares, evitando la burbuja de "más de lo mismo".</div>
+    </div>
+    <div class="finding-card">
+      <span class="finding-icon">📊</span>
+      <div class="finding-title">Asian y Café lideran calidad y volumen</div>
+      <div class="finding-text">Las cocinas Asiática y Café & Postres mantienen el mejor equilibrio entre volumen de reseñas y rating promedio (>4.07). En cambio, Pizza & Wings y Comida Americana concentran alto volumen pero ratings más bajos (~3.88–3.94), indicando mayor variabilidad en la experiencia.</div>
+    </div>
+  </div>
+
+  <!-- TOP 10 VISUAL -->
+  <div style="background: white; border-radius: 20px; padding: 36px; border: 1px solid rgba(193,124,78,0.1); margin-top: 32px;">
+    <div class="highlight-box-title" style="margin-bottom: 6px;">Top 10 recomendaciones para usuario ejemplo (SVD + Sentiment)</div>
+    <p style="font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-bottom: 20px;">Restaurantes no visitados con mayor score predicho. Confianza: Alta en todos los casos.</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">1</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Marinucci's Deli - Mayfair</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 5.00</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">2</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Restaurant Ambra</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 5.00</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">3</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Sampan</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 5.00</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">4</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Circles + Squares</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.99</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">5</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Daleng Restaurant</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.97</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">6</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Ken Love's BYOB</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.97</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">7</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Mole Poblano Restaurant</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.96</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">8</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Vetri Cucina</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.95</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">9</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Lost Bread Co.</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.96</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--warm); border-radius: 10px;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--accent2); min-width: 28px;">10</span>
+        <div><div style="font-size: 0.82rem; font-weight: 500; color: var(--text);">Hadramout</div><div style="font-size: 0.72rem; color: var(--muted);">Score: 4.96</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 6. RECOMENDACIONES -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">06</span>Recomendaciones</div>
+  <h2 class="section-title">Estrategia híbrida y próximos pasos</h2>
+
+  <div class="section-body" style="margin-bottom: 28px; max-width: 100%;">
+    <p>La recomendación principal es implementar un <strong>sistema híbrido con secciones diferenciadas</strong> donde cada modelo alimenta la sección más alineada con su naturaleza, en lugar de elegir un único modelo ganador.</p>
+  </div>
+
+  <div style="background: var(--warm); border-radius: 20px; padding: 32px 36px; border: 1px solid rgba(193,124,78,0.12); margin-bottom: 28px;">
+    <div class="highlight-box-title" style="margin-bottom: 20px;">Arquitectura de secciones recomendada</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+      <div style="background: white; border-radius: 14px; padding: 18px 20px;">
+        <div style="font-size: 0.68rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px;">Cold Start</div>
+        <div style="font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 6px;">Tendencias en tu zona</div>
+        <div style="font-size: 0.78rem; color: var(--muted); line-height: 1.6;">Rank-Based. Para usuarios nuevos sin historial, mostrar los mejores restaurantes por popularidad y rating mínimo garantizado.</div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: 18px 20px;">
+        <div style="font-size: 0.68rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px;">Usuarios activos</div>
+        <div style="font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 6px;">Basado en tus reseñas</div>
+        <div style="font-size: 0.78rem; color: var(--muted); line-height: 1.6;">SVD + Sentimiento. Personalización profunda que incorpora la emoción expresada en las reseñas para capturar lo que te gustó <em>de verdad</em>.</div>
+      </div>
+      <div style="background: white; border-radius: 14px; padding: 18px 20px;">
+        <div style="font-size: 0.68rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent2); margin-bottom: 8px;">Red social</div>
+        <div style="font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 6px;">Lo que tus amigos recomiendan</div>
+        <div style="font-size: 0.78rem; color: var(--muted); line-height: 1.6;">SVD + Friends. Recomendaciones socialmente validadas, especialmente útiles para el componente de confianza interpersonal.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec-list">
+    <div class="rec-item">
+      <div class="rec-icon">🔬</div>
+      <div class="rec-content">
+        <div class="rec-title">Incorporar LightFM con metadata del restaurante</div>
+        <div class="rec-text">Integrar variables como rango de precio, tipo de cocina, capacidad para grupos y ambiente en un modelo híbrido content-based + collaborative para superar las limitaciones de cold start en restaurantes nuevos.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">🧠</div>
+      <div class="rec-content">
+        <div class="rec-title">Evolucionar a Neural Collaborative Filtering (NCF)</div>
+        <div class="rec-text">Las relaciones no lineales entre usuarios y restaurantes no pueden ser capturadas por SVD. NCF puede aprender patrones de preferencia más complejos, especialmente para usuarios con comportamientos atípicos.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">📱</div>
+      <div class="rec-content">
+        <div class="rec-title">Despliegue local para el mercado uruguayo</div>
+        <div class="rec-text">Desarrollar una aplicación móvil adaptada al mercado uruguayo que integre la arquitectura híbrida, aprovechando el componente de grafo social que es especialmente relevante en mercados pequeños y de alta confianza interpersonal.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">⏱️</div>
+      <div class="rec-content">
+        <div class="rec-title">Evaluar modelos por etapa del ciclo de vida del usuario</div>
+        <div class="rec-text">El comportamiento del usuario cambia: los nuevos usuarios son más entusiastas (rating promedio más alto) mientras los usuarios veteranos son más críticos. El sistema debería ajustar qué modelo usar según la antigüedad y actividad del usuario en la plataforma.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 7. CÓDIGO Y VISUALIZACIONES -->
+<section class="content-section">
+  <div class="section-label"><span class="section-number">07</span>Código y hallazgos visuales</div>
+  <h2 class="section-title">Piezas clave del desarrollo</h2>
+
+  <!-- Cuisine quality chart -->
+  <div style="background: white; border-radius: 20px; padding: 36px; border: 1px solid rgba(193,124,78,0.1); margin-top: 32px;">
+    <div class="highlight-box-title" style="margin-bottom: 6px;">Rating promedio por tipo de cocina — Philadelphia</div>
+    <p style="font-size: 0.82rem; color: var(--muted); font-weight: 300; margin-bottom: 20px;">Relación entre volumen de reseñas y calidad percibida por categoría culinaria</p>
+    <div class="cuisine-bars">
+      <div class="bar-row">
+        <div class="bar-label">Asian</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 88%;"></div></div>
+        <div class="bar-value">4.10 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Café & Desserts</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 86%; opacity: .9;"></div></div>
+        <div class="bar-value">4.07 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">European</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 84%; opacity: .8;"></div></div>
+        <div class="bar-value">4.04 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Steaks & Grill</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 82%; opacity: .75;"></div></div>
+        <div class="bar-value">4.01 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Latin & Caribbean</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 80%; opacity: .7;"></div></div>
+        <div class="bar-value">3.97 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">American & Fast Food</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 76%; opacity: .6;"></div></div>
+        <div class="bar-value">3.94 ★</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Pizza & Wings</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 73%; opacity: .5;"></div></div>
+        <div class="bar-value">3.88 ★</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE: SOCIAL GRAPH -->
+  <div class="code-section" style="margin-top: 32px;">
+    <div class="code-header">
+      <div class="code-dots"><span></span><span></span><span></span></div>
+      <div class="code-title">Modelo 4 — Construcción del grafo social y regularización</div>
+      <div></div>
+    </div>
+    <div class="code-body"><span class="cm"># Construir el grafo de amigos con NetworkX</span>
+<span class="kw">import</span> networkx <span class="kw">as</span> nx
+
+G = nx.<span class="fn">Graph</span>()
+<span class="kw">for</span> _, row <span class="kw">in</span> df.iterrows():
+    user    = row[<span class="str">'user_id'</span>]
+    friends = str(row[<span class="str">'id_friends'</span>]).<span class="fn">split</span>(<span class="str">','</span>)
+    <span class="kw">for</span> friend <span class="kw">in</span> friends:
+        friend = friend.<span class="fn">strip</span>()
+        <span class="kw">if</span> friend:
+            G.<span class="fn">add_edge</span>(user, friend)
+
+print(f<span class="str">"Grafo: {G.number_of_nodes()} nodos, {G.number_of_edges()} conexiones"</span>)
+<span class="cm"># → Grafo: 8714 nodos y 32917 conexiones</span>
+
+<span class="cm"># Aplicar bono social proporcional (LOG) sobre el SVD</span>
+<span class="cm"># Si el usuario y sus amigos comparten preferencias,</span>
+<span class="cm"># el score SVD se ajusta proporcionalmente a la</span>
+<span class="cm"># intensidad de la conexión social</span>
+<span class="kw">def</span> <span class="fn">social_bonus</span>(user_id, business_id, svd_score, G, df):
+    friends_ratings = []
+    <span class="kw">if</span> user_id <span class="kw">in</span> G:
+        neighbors = list(G.<span class="fn">neighbors</span>(user_id))
+        friends_ratings = df[
+            (df[<span class="str">'user_id'</span>].isin(neighbors)) &
+            (df[<span class="str">'business_id'</span>] == business_id)
+        ][<span class="str">'rating_user'</span>].tolist()
+    <span class="kw">if</span> friends_ratings:
+        avg_friends = np.<span class="fn">mean</span>(friends_ratings)
+        bonus = np.<span class="fn">log1p</span>(len(friends_ratings)) * <span class="num">0.05</span>
+        <span class="kw">return</span> svd_score + bonus * (avg_friends - svd_score)
+    <span class="kw">return</span> svd_score</div>
+  </div>
+
+  <div class="highlight-box" style="margin-top: 32px; background: rgba(82,183,136,0.04); border-color: rgba(82,183,136,0.15);">
+    <div class="highlight-box-title">Limitaciones del proyecto</div>
+    <p><strong>Item-Item CF:</strong> Solo puede sugerir restaurantes similares a los ya visitados. No puede descubrir categorías completamente nuevas para el usuario.</p>
+    <p style="margin-top: 10px;"><strong>SVD + Friends:</strong> Limitado por la densidad de la red social. El 25% de los usuarios no tiene amigos en la plataforma, haciendo que el bono social sea nulo para ese segmento.</p>
+    <p style="margin-top: 10px;"><strong>Escala geográfica:</strong> El modelo fue entrenado y evaluado solo en Philadelphia. La generalización a otras ciudades requeriría reentrenamiento o un enfoque de transfer learning.</p>
+  </div>
+</section>
+
+<footer class="project-footer">
+  <p>© 2025 Martina Ibarra Álvez · UTEC – MIT · Data Science & AI</p>
+  <a href="martina-ibarra.html">← Volver al portafolio</a>
+</footer>
+
+</body>
+</html>

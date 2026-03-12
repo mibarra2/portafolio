@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClarIA — Martina Ibarra Álvez</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm: #F5ECD7;
+    --text: #2A2118;
+    --muted: #8A7968;
+    --accent: #C17C4E;
+    --accent2: #ff4f63;
+    --card-bg: #fff8f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: rgba(253, 246, 236, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(193,124,78,0.12);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .project-hero {
+    padding: 140px 60px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .project-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 24px;
+    background: rgba(255,79,99,0.08);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,79,99,0.2);
+  }
+
+  .project-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .project-hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .project-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid rgba(193,124,78,0.15);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .meta-value {
+    font-size: 0.87rem;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(193,124,78,0.25), transparent);
+    margin: 0 60px;
+  }
+
+  /* ── CONTENT SECTIONS ── */
+  .content-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 60px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(193,124,78,0.2);
+    max-width: 60px;
+  }
+
+  .section-number {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(193,124,78,0.1);
+    border: 1px solid rgba(193,124,78,0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  .section-body {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 300;
+    max-width: 780px;
+  }
+
+  .section-body p { margin-bottom: 16px; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* ── TWO COLUMN ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--warm);
+    border-radius: 20px;
+    padding: 32px 36px;
+    border: 1px solid rgba(193,124,78,0.12);
+    margin-top: 32px;
+  }
+
+  .highlight-box-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .highlight-box p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── TECH TAGS ── */
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .tech-tag {
+    font-size: 0.73rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.8);
+    color: var(--text);
+    border: 1px solid rgba(193,124,78,0.2);
+  }
+
+  .tech-tag.accent {
+    background: rgba(255,79,99,0.07);
+    border-color: rgba(255,79,99,0.2);
+    color: var(--accent2);
+  }
+
+  /* ── METHODOLOGY STEPS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .step-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px 24px;
+    border: 1px solid rgba(193,124,78,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--accent2), var(--accent));
+  }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: rgba(193,124,78,0.2);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-size: 0.87rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── RESULTS METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .metric-card {
+    background: white;
+    border-radius: 18px;
+    padding: 32px 24px;
+    text-align: center;
+    border: 1px solid rgba(193,124,78,0.1);
+  }
+
+  .metric-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .metric-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-section {
+    background: #1e1a16;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .code-dots {
+    display: flex;
+    gap: 7px;
+  }
+
+  .code-dots span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .code-dots span:nth-child(1) { background: #ff5f56; }
+  .code-dots span:nth-child(2) { background: #ffbd2e; }
+  .code-dots span:nth-child(3) { background: #27c93f; }
+
+  .code-title {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Outfit', monospace;
+  }
+
+  .code-body {
+    padding: 28px 32px;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: #d4c4a8;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .kw  { color: #ff4f63; }
+  .fn  { color: #f6c90e; }
+  .str { color: #a8d8a8; }
+  .cm  { color: #6a6050; font-style: italic; }
+  .num { color: #79b8ff; }
+  .var { color: #e6c07b; }
+
+  /* ── FINDINGS VISUAL ── */
+  .findings-section {
+    background: var(--warm);
+    padding: 80px 0;
+  }
+
+  .findings-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .finding-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .finding-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px 28px 28px 32px;
+    border-left: 3px solid var(--accent2);
+    position: relative;
+  }
+
+  .finding-icon {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .finding-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .finding-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── MODEL COMPARISON ── */
+  .model-comparison {
+    margin-top: 32px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(193,124,78,0.12);
+  }
+
+  .model-row {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 0;
+    border-bottom: 1px solid rgba(193,124,78,0.08);
+    align-items: center;
+  }
+
+  .model-row:last-child { border-bottom: none; }
+
+  .model-row.header {
+    background: rgba(193,124,78,0.06);
+  }
+
+  .model-cell {
+    padding: 16px 20px;
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-weight: 300;
+    border-right: 1px solid rgba(193,124,78,0.08);
+  }
+
+  .model-cell:last-child { border-right: none; }
+  .model-row.header .model-cell {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .model-name {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.85rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .badge.best { background: rgba(39,201,63,0.1); color: #1a8f2e; border: 1px solid rgba(39,201,63,0.2); }
+  .badge.good { background: rgba(246,201,14,0.1); color: #8a6f00; border: 1px solid rgba(246,201,14,0.2); }
+  .badge.ok   { background: rgba(193,124,78,0.1); color: var(--accent); border: 1px solid rgba(193,124,78,0.2); }
+
+  /* ── RECOMMENDATIONS ── */
+  .rec-list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .rec-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 14px;
+    padding: 20px 24px;
+    border: 1px solid rgba(193,124,78,0.1);
+  }
+
+  .rec-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(255,79,99,0.08);
+    border: 1px solid rgba(255,79,99,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .rec-content { flex: 1; }
+
+  .rec-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+
+  .rec-text {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── ARCHITECTURE DIAGRAM ── */
+  .architecture {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    border: 1px solid rgba(193,124,78,0.1);
+    margin-top: 32px;
+  }
+
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+
+  .arch-node {
+    background: var(--warm);
+    border: 1.5px solid rgba(193,124,78,0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 110px;
+  }
+
+  .arch-node.highlight {
+    background: rgba(255,79,99,0.06);
+    border-color: rgba(255,79,99,0.25);
+  }
+
+  .arch-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+
+  .arch-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .arch-arrow {
+    font-size: 1.2rem;
+    color: rgba(193,124,78,0.4);
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER NAV ── */
+  .project-footer {
+    background: var(--text);
+    padding: 60px;
+    text-align: center;
+  }
+
+  .project-footer p {
+    color: rgba(253,246,236,0.4);
+    font-size: 0.82rem;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .project-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: rgba(253,246,236,0.08);
+    color: rgba(253,246,236,0.8);
+    font-size: 0.85rem;
+    font-weight: 400;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid rgba(253,246,236,0.12);
+    transition: background 0.2s;
+  }
+
+  .project-footer a:hover { background: rgba(253,246,236,0.14); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-up {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .project-hero { padding: 110px 24px 60px; }
+    .content-section { padding: 50px 24px; }
+    .section-divider { margin: 0 24px; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .finding-items { grid-template-columns: 1fr; }
+    .findings-inner { padding: 0 24px; }
+    .project-footer { padding: 40px 24px; }
+    .model-row { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .arch-flow { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="martina-ibarra.html" class="nav-logo">Martina Ibarra Álvez</a>
+  <a href="martina-ibarra.html" class="nav-back">← Volver al portafolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero animate-up">
+  <div class="project-tag">NLP · RAG · LLM · Deep Learning</div>
+  <h1>Clar<em>IA</em></h1>
+  <p class="project-subtitle">Claim Assistance Resolution · Agente inteligente para el análisis de reclamos financieros</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Autoría</span>
+      <span class="meta-value">Martina Ibarra · Elena Salomon · Florencia Nebot</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Programa</span>
+      <span class="meta-value">Técnicas de IA – Deep Learning · UTEC – MIT</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Dataset</span>
+      <span class="meta-value">Consumer Complaint Database · CFPB · 1.28M registros</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Modelo Principal</span>
+      <span class="meta-value">Llama 3.2 + FAISS + all-MiniLM-L6-v2</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 1. INTRODUCCIÓN -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">01</span>
+    Introducción
+  </div>
+  <h2 class="section-title">¿Qué es ClarIA?</h2>
+  <div class="two-col">
+    <div class="section-body">
+      <p>ClarIA (Claim Assistance Resolution IA) es un agente inteligente diseñado para transformar grandes volúmenes de quejas financieras no estructuradas en insights accionables para la toma de decisiones.</p>
+      <p>El sistema combina técnicas de Deep Learning —embeddings semánticos, indexación vectorial con FAISS y modelos de lenguaje generativos (LLM)— bajo una arquitectura RAG (Retrieval-Augmented Generation) que permite consultar la base de reclamos en lenguaje natural.</p>
+      <p>ClarIA fue desarrollado sobre el <strong>Consumer Complaint Database</strong> de la CFPB (Consumer Financial Protection Bureau), filtrando y procesando específicamente los reclamos dirigidos a entidades bancarias.</p>
+    </div>
+    <div>
+      <div class="highlight-box">
+        <div class="highlight-box-title">¿Qué puede hacer ClarIA?</div>
+        <p>Responder preguntas como: <em>"¿Cuáles son los principales motivos de reclamo en hipotecas?"</em> o <em>"¿Hay evidencia de fraude digital creciente?"</em> — analizando miles de quejas reales en segundos, sin búsqueda por palabras clave.</p>
+      </div>
+      <div class="tech-stack">
+        <span class="tech-tag accent">RAG</span>
+        <span class="tech-tag accent">Llama 3.2</span>
+        <span class="tech-tag accent">FAISS</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">LangChain</span>
+        <span class="tech-tag">SentenceTransformers</span>
+        <span class="tech-tag">Ollama</span>
+        <span class="tech-tag">HuggingFace</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 2. MOTIVACIÓN -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">02</span>
+    Motivación
+  </div>
+  <h2 class="section-title">El problema que ClarIA resuelve</h2>
+  <div class="two-col">
+    <div>
+      <div class="section-body">
+        <p>Las instituciones financieras reciben miles de quejas de consumidores diariamente, pero carecen de herramientas para identificar automáticamente los problemas estructurales que las generan.</p>
+        <p>El análisis actual es manual o superficial: se clasifica la queja por producto o categoría, pero <strong>no se detectan las causas raíz</strong> que podrían corregirse para prevenir futuras quejas. Esto genera un ciclo reactivo costoso: se responde al síntoma, no al problema.</p>
+        <p>Esta ineficiencia deriva en desperdicio de recursos humanos, deterioro de la experiencia del cliente y riesgos reputacionales acumulados que solo se detectan cuando ya son un problema sistémico.</p>
+      </div>
+    </div>
+    <div>
+      <div class="steps-grid" style="grid-template-columns: 1fr 1fr; margin-top: 0;">
+        <div class="step-card">
+          <span class="step-num">01</span>
+          <div class="step-title">Análisis manual insostenible</div>
+          <div class="step-desc">1.28M de quejas en el dataset original, imposibles de leer y clasificar a mano con profundidad.</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">02</span>
+          <div class="step-title">Sin detección de causas raíz</div>
+          <div class="step-desc">La categorización superficial por producto no revela los patrones profundos que generan las quejas.</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">03</span>
+          <div class="step-title">Reacción tardía</div>
+          <div class="step-desc">Los picos de reclamos solo se detectan cuando ya representan una crisis, no cuando aún son prevenibles.</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">04</span>
+          <div class="step-title">Datos ricos no aprovechados</div>
+          <div class="step-desc">El 30% de las quejas incluyen narrativas detalladas del consumidor, un activo de información desaprovechado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 3. RESUMEN -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">03</span>
+    Resumen
+  </div>
+  <h2 class="section-title">El proyecto en síntesis</h2>
+  <div class="section-body" style="max-width: 100%;">
+    <p>ClarIA procesa el Consumer Complaint Database de la CFPB, filtrando y depurando un conjunto de <strong>1,941 quejas de entidades bancarias</strong> con narrativa textual completa. Sobre este dataset balanceado, se construyó una arquitectura RAG que convierte las quejas en embeddings semánticos mediante el modelo <em>all-MiniLM-L6-v2</em>, indexados en FAISS para búsqueda de alta velocidad.</p>
+    <p>El agente puede recibir preguntas en lenguaje natural, recuperar los 5 fragmentos de texto más relevantes por similitud semántica y generar una respuesta analítica mediante Llama 3.2. Se evaluaron y compararon cuatro modelos LLM (Llama 3.2-1B, Phi-3 Mini, Mistral y Solar) sobre el mismo pipeline RAG, determinando que <strong>Llama 3.2-1B es el modelo con mejor balance entre precisión y ausencia de alucinaciones</strong>.</p>
+  </div>
+
+  <!-- ARCHITECTURE DIAGRAM -->
+  <div class="architecture">
+    <div class="highlight-box-title" style="margin-bottom: 24px;">Flujo de la arquitectura RAG</div>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <span class="arch-icon">📄</span>
+        <div class="arch-label">Dataset CFPB<br><small style="opacity:.6">1.28M registros</small></div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-icon">🧹</span>
+        <div class="arch-label">Limpieza &amp;<br>Filtrado</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node highlight">
+        <span class="arch-icon">🧠</span>
+        <div class="arch-label">Embeddings<br><small style="opacity:.7">MiniLM-L6-v2</small></div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node highlight">
+        <span class="arch-icon">⚡</span>
+        <div class="arch-label">FAISS Index<br><small style="opacity:.7">búsqueda vectorial</small></div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node highlight">
+        <span class="arch-icon">🤖</span>
+        <div class="arch-label">Llama 3.2<br><small style="opacity:.7">generación</small></div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-icon">💬</span>
+        <div class="arch-label">Respuesta<br>analítica</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 4. METODOLOGÍA -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">04</span>
+    Metodología
+  </div>
+  <h2 class="section-title">Pipeline de desarrollo</h2>
+
+  <div class="section-body">
+    <p>El desarrollo de ClarIA siguió un pipeline estructurado en seis etapas, desde la depuración del dataset hasta el ajuste fino del modelo.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <span class="step-num">1</span>
+      <div class="step-title">Exploración y limpieza</div>
+      <div class="step-desc">Auditoría del dataset: 1.28M registros, 30% con narrativa. Se eliminaron nulos, duplicados, outliers de longitud y secuencias de anonimización (XXXX). Filtro: 100–1500 caracteres por comentario.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">2</span>
+      <div class="step-title">Segmentación y balanceo</div>
+      <div class="step-desc">Clasificación de empresas por tipo (banco, fintech, prestadora). Consolidación de categorías de producto. Undersampling controlado: máximo 250 quejas por producto, obteniendo 1,941 registros balanceados.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">3</span>
+      <div class="step-title">Validación con LLM</div>
+      <div class="step-desc">Uso de Llama 3.2 para clasificar cada queja como ACTIONABLE o NOISE. Solo el 2.47% fue descartado (48 de 1,941), confirmando la alta calidad del corpus filtrado.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">4</span>
+      <div class="step-title">Chunking optimizado</div>
+      <div class="step-desc">Experimento comparativo de segmentación: 200, 300 y 400 caracteres con overlap de 20. Se eligieron <strong>300 caracteres</strong> por mejor equilibrio entre eficiencia computacional y riqueza contextual. 5,263 fragmentos totales.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">5</span>
+      <div class="step-title">Indexación semántica</div>
+      <div class="step-desc">Embeddings con <em>all-MiniLM-L6-v2</em> (SentenceTransformers). Indexación vectorial con FAISS (IndexFlatL2). Persistencia en disco para evitar reprocesamiento.</div>
+    </div>
+    <div class="step-card">
+      <span class="step-num">6</span>
+      <div class="step-title">Ajuste de hiperparámetros</div>
+      <div class="step-desc">Búsqueda del K óptimo para recuperación: se evaluaron k = 1, 3, 5, 10, 20. El <strong>k=5</strong> maximiza el score semántico (0.869) manteniendo precisión. Threshold de seguridad en 1.00 para evitar respuestas sin contexto.</div>
+    </div>
+  </div>
+
+  <!-- CODE SNIPPET -->
+  <div class="code-section" style="margin-top: 40px;">
+    <div class="code-header">
+      <div class="code-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="code-title">Pipeline RAG — Generación de respuesta con Llama 3.2</div>
+      <div></div>
+    </div>
+    <div class="code-body"><span class="kw">class</span> <span class="fn">RAGPipeline</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, index, metadata_df, model, threshold=<span class="num">1.00</span>):
+        <span class="var">self</span>.index       = index
+        <span class="var">self</span>.metadata_df = metadata_df
+        <span class="var">self</span>.model       = model
+        <span class="var">self</span>.threshold   = threshold  <span class="cm"># filtro anti-alucinación</span>
+
+    <span class="kw">def</span> <span class="fn">generate_answer</span>(<span class="var">self</span>, query):
+        <span class="cm"># Paso 1: recuperar los 5 fragmentos más relevantes</span>
+        results    = <span class="fn">search_complaints</span>(query, <span class="var">self</span>.index,
+                                        <span class="var">self</span>.metadata_df, <span class="var">self</span>.model, k=<span class="num">5</span>)
+        best_score = results[<span class="str">'score'</span>].iloc[<span class="num">0</span>]
+
+        <span class="cm"># Paso 2: bloquear si no hay coincidencia semántica</span>
+        <span class="kw">if</span> best_score > <span class="var">self</span>.threshold:
+            <span class="kw">return</span> <span class="str">"No encontré quejas relacionadas en mi base de datos."</span>, []
+
+        <span class="cm"># Paso 3: construir el contexto para el LLM</span>
+        chunks  = results[<span class="str">'chunk_text'</span>].tolist()
+        context = <span class="str">"\n"</span>.join([<span class="str">f"- {c}"</span> <span class="kw">for</span> c <span class="kw">in</span> chunks])
+
+        <span class="cm"># Paso 4: prompt estructurado para análisis neutro</span>
+        prompt = <span class="str">f"""
+SYSTEM: You are a neutral Compliance Senior Assistant.
+Summarize the main issues from the complaints. Report facts only.
+CONTEXT: {context}
+QUESTION: {query}
+"""</span>
+        response = ollama.chat(
+            model   = <span class="str">'llama3.2:1b'</span>,
+            messages= [{<span class="str">'role'</span>: <span class="str">'user'</span>, <span class="str">'content'</span>: prompt}],
+            options = {<span class="str">'temperature'</span>: <span class="num">0.2</span>, <span class="str">'top_p'</span>: <span class="num">0.9</span>}
+        )
+        <span class="kw">return</span> response[<span class="str">'message'</span>][<span class="str">'content'</span>], chunks</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 5. RESULTADOS -->
+<section class="findings-section">
+  <div class="findings-inner">
+    <div class="section-label">
+      <span class="section-number">05</span>
+      Resultados
+    </div>
+    <h2 class="section-title">Hallazgos principales</h2>
+
+    <!-- METRICS -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-number">97.5%</div>
+        <div class="metric-label">de las quejas clasificadas como ACTIONABLE por el agente de validación</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">0.87</div>
+        <div class="metric-label">Score semántico promedio con k=5 (alta relación semántica)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">1,941</div>
+        <div class="metric-label">quejas bancarias balanceadas procesadas a partir de 1.28M de registros</div>
+      </div>
+    </div>
+
+    <!-- FINDINGS -->
+    <div class="finding-items" style="margin-top: 40px;">
+      <div class="finding-card">
+        <span class="finding-icon">🏦</span>
+        <div class="finding-title">Productos más reclamados</div>
+        <div class="finding-text">Hipotecas (Mortgages) y tarjetas de crédito concentran el mayor volumen de reclamos bancarios. Los motivos principales son "Managing an account" y "Account opening", revelando que las causas raíz son problemas de experiencia de usuario y burocracia, no solo fallas financieras.</div>
+      </div>
+      <div class="finding-card">
+        <span class="finding-icon">📈</span>
+        <div class="finding-title">Pico temporal en 2018</div>
+        <div class="finding-text">El análisis exploratorio reveló un pico significativo de reclamos hacia 2018, indicativo de un evento sistémico. ClarIA, aplicado en tiempo real, podría detectar estos picos días o semanas antes de que escalen a crisis reputacional.</div>
+      </div>
+      <div class="finding-card">
+        <span class="finding-icon">🎯</span>
+        <div class="finding-title">Búsqueda por concepto, no por palabras</div>
+        <div class="finding-text">Al consultar por "interest rates", el sistema identificó quejas sobre tasas en Student Loans y Personal Loans, aunque el usuario no especificó el producto. Los scores entre 0.80–0.83 confirman relación semántica fuerte incluso con vocabulario diferente.</div>
+      </div>
+      <div class="finding-card">
+        <span class="finding-icon">🛡️</span>
+        <div class="finding-title">Sin alucinaciones en respuestas</div>
+        <div class="finding-text">El modelo no inventó números, nombres de bancos ni leyes fuera del contexto provisto. El threshold de 1.00 bloqueó eficazmente preguntas fuera de dominio (receta de torta, preguntas en español), devolviendo mensaje de no contexto en lugar de inventar respuestas.</div>
+      </div>
+    </div>
+
+    <!-- MODEL COMPARISON -->
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-top: 48px; margin-bottom: 8px;">Comparación de modelos LLM evaluados</h3>
+    <p style="font-size: 0.85rem; color: var(--muted); font-weight: 300; margin-bottom: 0;">Los cuatro modelos fueron evaluados sobre el mismo pipeline RAG con tres consultas reales.</p>
+
+    <div class="model-comparison">
+      <div class="model-row header">
+        <div class="model-cell">Modelo</div>
+        <div class="model-cell">Características</div>
+        <div class="model-cell">Evaluación</div>
+      </div>
+      <div class="model-row" style="background: rgba(39,201,63,0.02);">
+        <div class="model-cell"><span class="model-name">Llama 3.2-1B</span></div>
+        <div class="model-cell">Estructurado, profesional, fiel al texto fuente. Resúmenes con puntos clave. Mínimas alucinaciones. Brevedad apropiada.</div>
+        <div class="model-cell"><span class="badge best">Óptimo</span></div>
+      </div>
+      <div class="model-row">
+        <div class="model-cell"><span class="model-name">Mistral</span></div>
+        <div class="model-cell">Listas detalladas con consecuencias del problema. Explora impacto crediticio y estrés financiero. Más verboso que Llama.</div>
+        <div class="model-cell"><span class="badge good">Bueno</span></div>
+      </div>
+      <div class="model-row">
+        <div class="model-cell"><span class="model-name">Phi-3 Mini</span></div>
+        <div class="model-cell">Fragmenta como si hubiera múltiples IDs de queja. Útil para volumen alto, pero pierde precisión en casos individuales.</div>
+        <div class="model-cell"><span class="badge good">Moderado</span></div>
+      </div>
+      <div class="model-row">
+        <div class="model-cell"><span class="model-name">Solar</span></div>
+        <div class="model-cell">Formato párrafo, enfocado en sentimiento general. Directo pero simplifica demasiado. Menos escaneable visualmente.</div>
+        <div class="model-cell"><span class="badge ok">Básico</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. RECOMENDACIONES -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">06</span>
+    Recomendaciones
+  </div>
+  <h2 class="section-title">Próximos pasos y mejoras sugeridas</h2>
+
+  <div class="rec-list">
+    <div class="rec-item">
+      <div class="rec-icon">📊</div>
+      <div class="rec-content">
+        <div class="rec-title">Dashboard interactivo para analistas</div>
+        <div class="rec-text">Desarrollar una interfaz visual que permita a analistas de cumplimiento consultar ClarIA en lenguaje natural y explorar los tópicos emergentes con gráficas interactivas, sin necesidad de conocimiento técnico.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">⚡</div>
+      <div class="rec-content">
+        <div class="rec-title">Pipeline de actualización en tiempo real</div>
+        <div class="rec-text">Implementar un flujo continuo que incorpore nuevas quejas al índice FAISS automáticamente, permitiendo detección proactiva de picos y eventos sistémicos con días de anticipación.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">🌐</div>
+      <div class="rec-content">
+        <div class="rec-title">Ampliar el alcance más allá de bancos</div>
+        <div class="rec-text">El pipeline actual filtra solo bancos por consistencia analítica. Extender el agente para cubrir fintechs, prestadoras de crédito y otros tipos de instituciones financieras del dataset original.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">🔗</div>
+      <div class="rec-content">
+        <div class="rec-title">Incorporar datos estructurados al contexto RAG</div>
+        <div class="rec-text">Enriquecer el agente con metadata estructurada (fecha del reclamo, empresa, producto, estado, respuesta de la compañía) para que las respuestas puedan filtrar por variables específicas y no solo por semántica textual.</div>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-icon">🔬</div>
+      <div class="rec-content">
+        <div class="rec-title">Escalar con modelos más grandes o fine-tuning</div>
+        <div class="rec-text">Evaluar el desempeño con Llama 3.2-8B o modelos especializados en lenguaje financiero. Considerar fine-tuning sobre el corpus de quejas para mejorar la comprensión de terminología bancaria específica.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- 7. GRÁFICAS Y CÓDIGO -->
+<section class="content-section">
+  <div class="section-label">
+    <span class="section-number">07</span>
+    Código y hallazgos visuales
+  </div>
+  <h2 class="section-title">Piezas clave del desarrollo</h2>
+
+  <div class="section-body">
+    <p>A continuación se muestran los fragmentos de código más representativos del pipeline, junto con los hallazgos visuales del análisis exploratorio.</p>
+  </div>
+
+  <!-- EDA INSIGHTS VISUAL -->
+  <div style="background: white; border-radius: 20px; padding: 36px; border: 1px solid rgba(193,124,78,0.1); margin-top: 32px;">
+    <div class="highlight-box-title" style="margin-bottom: 24px;">Hallazgos del análisis exploratorio (EDA)</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="background: var(--warm); border-radius: 14px; padding: 20px 24px;">
+        <div style="font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Distribución por producto</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Mortgages</span><span>~35%</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 35%; background: var(--accent2); border-radius: 4px;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Credit Cards</span><span>~25%</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 25%; background: var(--accent2); border-radius: 4px; opacity: .8;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Banking Services</span><span>~18%</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 18%; background: var(--accent2); border-radius: 4px; opacity: .65;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Loans</span><span>~12%</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 12%; background: var(--accent2); border-radius: 4px; opacity: .5;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Debt Collection</span><span>~10%</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 10%; background: var(--accent2); border-radius: 4px; opacity: .4;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background: var(--warm); border-radius: 14px; padding: 20px 24px;">
+        <div style="font-size: 0.7rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Top bancos con más reclamos</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>JPMorgan Chase</span><span>★★★</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 80%; background: #2E86C1; border-radius: 4px;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Bank of America</span><span>★★★</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 72%; background: #2E86C1; border-radius: 4px; opacity: .8;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Citibank</span><span>★★</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 55%; background: #2E86C1; border-radius: 4px; opacity: .65;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Wells Fargo</span><span>★★</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 45%; background: #2E86C1; border-radius: 4px; opacity: .5;"></div></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px;"><span>Capital One</span><span>★</span></div>
+            <div style="height: 6px; background: rgba(193,124,78,0.1); border-radius: 4px;"><div style="height: 100%; width: 28%; background: #2E86C1; border-radius: 4px; opacity: .4;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE: EMBEDDING + FAISS -->
+  <div class="code-section" style="margin-top: 32px;">
+    <div class="code-header">
+      <div class="code-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="code-title">Indexación semántica — Embeddings + FAISS</div>
+      <div></div>
+    </div>
+    <div class="code-body"><span class="cm"># Pipeline de indexación vectorial</span>
+<span class="var">CHUNK_SIZE</span>    = <span class="num">300</span>
+<span class="var">CHUNK_OVERLAP</span> = <span class="num">20</span>
+<span class="var">MODEL_NAME</span>    = <span class="str">'all-MiniLM-L6-v2'</span>
+
+<span class="kw">def</span> <span class="fn">run_indexing_pipeline</span>(df):
+    <span class="cm"># 1. CHUNKING con metadata</span>
+    splitter = <span class="fn">RecursiveCharacterTextSplitter</span>(
+        chunk_size=<span class="var">CHUNK_SIZE</span>, chunk_overlap=<span class="var">CHUNK_OVERLAP</span>
+    )
+    chunked_data = []
+    <span class="kw">for</span> _, row <span class="kw">in</span> df.iterrows():
+        chunks = splitter.<span class="fn">split_text</span>(row[<span class="str">'clean_narrative'</span>])
+        <span class="kw">for</span> chunk <span class="kw">in</span> chunks:
+            chunked_data.append({
+                <span class="str">"product"</span>    : row[<span class="str">'Product'</span>],
+                <span class="str">"chunk_text"</span> : chunk
+            })
+    df_chunks = pd.<span class="fn">DataFrame</span>(chunked_data)
+
+    <span class="cm"># 2. EMBEDDINGS semánticos</span>
+    model      = <span class="fn">SentenceTransformer</span>(<span class="var">MODEL_NAME</span>)
+    embeddings = model.<span class="fn">encode</span>(df_chunks[<span class="str">'chunk_text'</span>].tolist(),
+                               show_progress_bar=<span class="kw">True</span>)
+
+    <span class="cm"># 3. INDEXACIÓN con FAISS</span>
+    dimension = embeddings.shape[<span class="num">1</span>]
+    index     = faiss.<span class="fn">IndexFlatL2</span>(dimension)
+    index.<span class="fn">add</span>(np.array(embeddings).astype(<span class="str">'float32'</span>))
+
+    <span class="cm"># 4. PERSISTENCIA en disco</span>
+    faiss.<span class="fn">write_index</span>(index, <span class="str">"complaints_index.faiss"</span>)
+    df_chunks.<span class="fn">to_csv</span>(<span class="str">"metadata_chunks.csv"</span>, index=<span class="kw">False</span>)
+    <span class="kw">print</span>(<span class="str">f"✅ {len(df_chunks)} fragmentos indexados."</span>)
+    <span class="kw">return</span> index, df_chunks</div>
+  </div>
+
+  <!-- LIMITATIONS -->
+  <div class="highlight-box" style="margin-top: 32px; background: rgba(255,79,99,0.04); border-color: rgba(255,79,99,0.12);">
+    <div class="highlight-box-title">Limitaciones identificadas</div>
+    <p><strong>Volumen muestral:</strong> La necesidad de balancear el dataset redujo 1.28M de registros a 1,941. Escalar el sistema requeriría mayor capacidad computacional para indexar el corpus completo.</p>
+    <p style="margin-top: 10px;"><strong>Ruido de anonimización:</strong> Las secuencias "XXXX" que reemplazan datos confidenciales introducen ruido en los embeddings. La limpieza implementada mitiga el problema pero no lo elimina completamente.</p>
+    <p style="margin-top: 10px;"><strong>Idioma:</strong> El sistema opera en inglés (idioma del dataset). El threshold de 1.00 bloquea correctamente preguntas en español, pero podría extenderse con modelos multilingüe.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <p>© 2025 Martina Ibarra Álvez · UTEC – MIT · Data Science & AI</p>
+  <a href="martina-ibarra.html">← Volver al portafolio</a>
+</footer>
+
+</body>
+</html>
